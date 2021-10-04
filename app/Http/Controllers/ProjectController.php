@@ -38,7 +38,12 @@ class ProjectController extends Controller
      */
     public function store(ProjectStoreRequest $request)
     {
-        Project::create($request->validated());
+        $attributes = $request->validated();
+
+        /** @var User $user */
+        $user = auth()->user();
+
+        $user->projects()->create($attributes);
 
         return redirect('/projects');
     }

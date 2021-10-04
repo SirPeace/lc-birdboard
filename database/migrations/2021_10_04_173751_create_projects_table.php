@@ -19,6 +19,10 @@ class CreateProjectsTable extends Migration
             $table->string('title');
             $table->text('description');
 
+            $table->foreignId('owner_id')
+                ->constrained('users')
+                ->onDelete('cascade');
+
             $table->timestamps();
         });
     }
