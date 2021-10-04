@@ -16,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/projects', [ProjectController::class, 'store']);
 Route::get('/projects', [ProjectController::class, 'index']);
+Route::get('/projects/{project}', [ProjectController::class, 'show']);
