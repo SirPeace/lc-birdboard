@@ -10,9 +10,11 @@
     <h1>{{ config('app.name') }}</h1>
 
     <ul>
-        @foreach ($projects as $project)
+        @forelse ($projects as $project)
             <li>{{ $project->title }}</li>
-        @endforeach
+        @empty
+            <li>No projects yet.</li>
+        @endforelse
     </ul>
 </body>
 </html>

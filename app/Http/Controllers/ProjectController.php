@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Requests\Projects\ProjectStoreRequest;
 
 class ProjectController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Project::class);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +21,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
+        $projects = auth()->user()->projects;
 
         return view('projects.index', compact('projects'));
     }

@@ -20,7 +20,7 @@ class ProjectTest extends TestCase
     }
 
     /** @test */
-    public function it_has_owner()
+    public function it_belongs_to_owner()
     {
         $user = User::factory()->create();
 
