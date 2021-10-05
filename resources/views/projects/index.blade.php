@@ -1,22 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ config('app.name') }}</title>
-</head>
-<body>
-    <h1>{{ config('app.name') }}</h1>
+<x-app-layout>
+    <div class="flex justify-between items-center mb-4">
+        <h1 class="text-2xl font-bold">My projects</h1>
+        <a href="/projects/create" class="text-blue-400 hover:text-blue-500">Create project</a>
+    </div>
 
     <ul>
         @forelse ($projects as $project)
             <li>
-                <a href="/projects/{{ $project->id }}">{{ $project->title }}</a>
+                <a href="/projects/{{ $project->id }}" class="text-blue-400 hover:text-blue-500">{{ $project->title }}</a>
             </li>
         @empty
             <li>No projects yet.</li>
         @endforelse
     </ul>
-</body>
-</html>
+</x-app-layout>

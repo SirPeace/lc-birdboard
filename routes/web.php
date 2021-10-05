@@ -19,8 +19,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/projects/create', [ProjectController::class, 'create']);
     Route::get('/projects/{project}', [ProjectController::class, 'show']);
     Route::post('/projects', [ProjectController::class, 'store']);
-
-    Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
 });
 
 require __DIR__.'/auth.php';

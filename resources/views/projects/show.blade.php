@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ config('app.name') }}</title>
-</head>
-<body>
-    <h1>{{ config('app.name') }}</h1>
+<x-app-layout>
+    <div class="flex justify-between items-center mb-4">
+        <h1 class="text-2xl font-bold">{{ $project->title }}</h1>
+    </div>
 
-    <h2>{{ $project->title }}</h2>
-    <p>{{ $project->description }}</p>
-</body>
-</html>
+    <p class="my-4">{{ $project->description }}</p>
+
+    <a href="/projects" class="text-blue-400 hover:text-blue-500">Back</a>
+</x-app-layout>
