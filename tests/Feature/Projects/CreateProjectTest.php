@@ -12,13 +12,6 @@ class CreateProjectTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->user = User::factory()->create();
-    }
-
     /** @test */
     public function guest_cannot_create_project()
     {
@@ -36,9 +29,7 @@ class CreateProjectTest extends TestCase
     /** @test */
     public function user_can_create_project()
     {
-        $this->withoutExceptionHandling();
-
-        $this->actingAs($this->user);
+        $this->signIn();
 
         $this->get('/projects/create')->assertSuccessful();
 
@@ -57,7 +48,7 @@ class CreateProjectTest extends TestCase
     /** @test */
     public function project_requires_title()
     {
-        $this->actingAs($this->user);
+        $this->signIn();
 
         $attributes = Project::factory()->raw(['title' => '']);
 
@@ -68,7 +59,7 @@ class CreateProjectTest extends TestCase
     /** @test */
     public function project_requires_description()
     {
-        $this->actingAs($this->user);
+        $this->signIn();
 
         $attributes = Project::factory()->raw(['description' => '']);
 

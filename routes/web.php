@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/projects/create', [ProjectController::class, 'create']);
     Route::get('/projects/{project}', [ProjectController::class, 'show']);
     Route::post('/projects', [ProjectController::class, 'store']);
+
+    Route::post('/projects/{project}/tasks', [TaskController::class, 'store']);
 });
 
 require __DIR__.'/auth.php';

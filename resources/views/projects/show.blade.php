@@ -12,7 +12,9 @@
             <section class="mb-6">
                 <h3 class="text-lg text-gray-400 mb-4">Tasks</h3>
 
-                <x-card>Lorem ipsum</x-card>
+                @foreach ($project->tasks as $task)
+                    <x-card>{{ $task->body }}</x-card>
+                @endforeach
             </section>
 
             <section>

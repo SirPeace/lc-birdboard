@@ -25,9 +25,7 @@ class ShowProjectsTest extends TestCase
     {
         $projects = Project::factory(2)->create();
 
-        /** @var User $user */
-        $user = User::factory()->create();
-        $this->actingAs($user);
+        $this->signIn();
 
         $this->get('/projects')
             ->assertSee('No projects yet.')
@@ -40,11 +38,9 @@ class ShowProjectsTest extends TestCase
     /** @test */
     public function user_can_see_and_view_its_projects()
     {
-        $this->withoutExceptionHandling();
-
         /** @var User $user */
         $user = User::factory()->create();
-        $this->actingAs($user);
+        $this->signIn($user);
 
         $projects = Project::factory(2)->for($user, 'owner')->create();
 
@@ -56,11 +52,9 @@ class ShowProjectsTest extends TestCase
     /** @test */
     public function user_can_view_its_project()
     {
-        $this->withoutExceptionHandling();
-
         /** @var User $user */
         $user = User::factory()->create();
-        $this->actingAs($user);
+        $this->signIn($user);
 
         $project = Project::factory()->for($user, 'owner')->create();
 
@@ -72,9 +66,7 @@ class ShowProjectsTest extends TestCase
     /** @test */
     public function receive_404_if_project_does_not_exist()
     {
-        /** @var User $user */
-        $user = User::factory()->create();
-        $this->actingAs($user);
+        $this->signIn();
 
         $this->get("/projects/1")->assertStatus(404);
     }
