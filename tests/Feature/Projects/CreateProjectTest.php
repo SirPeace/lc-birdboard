@@ -20,7 +20,7 @@ class CreateProjectTest extends TestCase
     }
 
     /** @test */
-    public function only_authenticated_user_can_create_a_project()
+    public function only_authenticated_user_can_create_project()
     {
         $attributes = [
             'title' => $this->faker->sentence(),
@@ -33,7 +33,7 @@ class CreateProjectTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_create_a_project()
+    public function user_can_create_project()
     {
         $this->withoutExceptionHandling();
 
@@ -52,7 +52,7 @@ class CreateProjectTest extends TestCase
     }
 
     /** @test */
-    public function a_project_requires_a_title()
+    public function project_requires_title()
     {
         $this->actingAs($this->user);
 
@@ -63,7 +63,7 @@ class CreateProjectTest extends TestCase
     }
 
     /** @test */
-    public function a_project_requires_a_description()
+    public function project_requires_description()
     {
         $this->actingAs($this->user);
 
