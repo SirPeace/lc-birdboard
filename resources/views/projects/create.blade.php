@@ -35,12 +35,12 @@
         <div class="pt-4">
             <button
                 type="submit"
-                class="bg-blue-400 hover:bg-blue-500 transition rounded px-3 py-2 text-white w-full"
+                class="bg-blue-400 hover:bg-blue-dark transition rounded px-3 py-2 text-white w-full"
             >
                 Create
             </button>
 
-            <a href="/projects" class="inline-block text-blue-400 hover:text-blue-500 mt-2">Cancel</a>
+            <a href="/projects" class="inline-block text-blue-400 hover:text-blue-dark mt-2">Cancel</a>
         </div>
     </form>
 </x-app-layout>

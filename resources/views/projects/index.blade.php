@@ -1,16 +1,25 @@
 <x-app-layout>
-    <div class="flex justify-between items-center mb-4">
-        <h1 class="text-2xl font-bold">My projects</h1>
-        <a href="/projects/create" class="text-blue-400 hover:text-blue-500">Create project</a>
+    <div class="flex justify-between items-end mb-6 px-3 lg:px-0">
+        <span class="text-gray-400">My projects</span>
+        <a href="/projects/create" class="text-white bg-blue px-8 py-2 rounded-xl hover:bg-blue-dark transition">Add Project</a>
     </div>
 
-    <ul>
+    <div class="lg:flex lg:flex-wrap lg:-mx-3">
         @forelse ($projects as $project)
-            <li>
-                <a href="/projects/{{ $project->id }}" class="text-blue-400 hover:text-blue-500">{{ $project->title }}</a>
-            </li>
+            <div class="lg:w-1/3 px-3 pb-6">
+                <x-project-card
+                    :link="'/projects/'.$project->id"
+                    :description="
+                        strlen($project->description) >= 170
+                            ? substr($project->description, 0, 170).'…'
+                            : $project->description
+                    "
+                    :title="$project->title"
+                    class="h-full hover:shadow-lg transition cursor-pointer"
+                />
+            </div>
         @empty
-            <li>No projects yet.</li>
+            <div>No projects yet.</div>
         @endforelse
-    </ul>
+    </div>
 </x-app-layout>
