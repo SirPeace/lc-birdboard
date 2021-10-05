@@ -12,10 +12,8 @@ class ShowProjectsTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function user_cannot_see_others_projects()
+    public function user_cannot_see_nor_view_others_projects()
     {
-        $this->withoutExceptionHandling();
-
         /** @var User $user */
         $user = User::factory()->create();
         $this->actingAs($user);
@@ -26,10 +24,12 @@ class ShowProjectsTest extends TestCase
             ->assertSee('No projects yet.')
             ->assertDontSee($projects[0]->title)
             ->assertDontSee($projects[1]->title);
+
+        $this->get($projects[0]->path())->assertStatus(403);
     }
 
     /** @test */
-    public function user_can_see_its_projects()
+    public function user_can_see_and_view_its_projects()
     {
         $this->withoutExceptionHandling();
 
@@ -42,18 +42,6 @@ class ShowProjectsTest extends TestCase
         $this->get('/projects')
             ->assertSee($projects[0]->title)
             ->assertSee($projects[1]->title);
-    }
-
-    /** @test */
-    public function user_cannot_view_others_project()
-    {
-        /** @var User $user */
-        $user = User::factory()->create();
-        $this->actingAs($user);
-
-        $project = Project::factory()->create();
-
-        $this->get($project->path())->assertStatus(403);
     }
 
     /** @test */

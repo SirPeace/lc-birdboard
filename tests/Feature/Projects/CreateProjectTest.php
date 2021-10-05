@@ -20,7 +20,7 @@ class CreateProjectTest extends TestCase
     }
 
     /** @test */
-    public function only_authenticated_user_can_create_project()
+    public function guest_cannot_create_a_project()
     {
         $attributes = [
             'title' => $this->faker->sentence(),
