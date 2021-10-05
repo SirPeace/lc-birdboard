@@ -12,13 +12,22 @@ class ShowProjectsTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
+    public function guest_cannot_see_nor_view_others_projects()
+    {
+        $projects = Project::factory(2)->create();
+
+        $this->get('/projects')->assertRedirect('/login');
+        $this->get($projects[0]->path())->assertRedirect('/login');
+    }
+
+    /** @test */
     public function user_cannot_see_nor_view_others_projects()
     {
+        $projects = Project::factory(2)->create();
+
         /** @var User $user */
         $user = User::factory()->create();
         $this->actingAs($user);
-
-        $projects = Project::factory(2)->create();
 
         $this->get('/projects')
             ->assertSee('No projects yet.')
@@ -63,6 +72,10 @@ class ShowProjectsTest extends TestCase
     /** @test */
     public function receive_404_if_project_does_not_exist()
     {
+        /** @var User $user */
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
         $this->get("/projects/1")->assertStatus(404);
     }
 }

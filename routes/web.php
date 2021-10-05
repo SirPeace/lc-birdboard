@@ -14,12 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/projects', [ProjectController::class, 'store'])->middleware('auth');
-Route::get('/projects', [ProjectController::class, 'index']);
-Route::get('/projects/{project}', [ProjectController::class, 'show']);
+Route::middleware('auth')->group(function () {
+    Route::get('/projects', [ProjectController::class, 'index']);
+    Route::get('/projects/create', [ProjectController::class, 'create']);
+    Route::get('/projects/{project}', [ProjectController::class, 'show']);
+    Route::post('/projects', [ProjectController::class, 'store']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+    Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
+});
 
 require __DIR__.'/auth.php';

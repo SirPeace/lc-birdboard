@@ -20,13 +20,14 @@ class CreateProjectTest extends TestCase
     }
 
     /** @test */
-    public function guest_cannot_create_a_project()
+    public function guest_cannot_create_project()
     {
         $attributes = [
             'title' => $this->faker->sentence(),
             'description' => $this->faker->paragraph()
         ];
 
+        $this->get('/projects/create')->assertRedirect('/login');
         $this->post('/projects', $attributes)->assertRedirect('/login');
 
         $this->assertDatabaseMissing('projects', $attributes);
@@ -38,6 +39,8 @@ class CreateProjectTest extends TestCase
         $this->withoutExceptionHandling();
 
         $this->actingAs($this->user);
+
+        $this->get('/projects/create')->assertSuccessful();
 
         $attributes = [
             'title' => $this->faker->sentence(),
