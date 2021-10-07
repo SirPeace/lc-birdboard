@@ -44,14 +44,12 @@ class ProjectController extends Controller
      */
     public function store(ProjectStoreRequest $request)
     {
-        $attributes = $request->validated();
-
         /** @var User $user */
         $user = auth()->user();
 
-        $user->projects()->create($attributes);
+        $project = $user->projects()->create($request->validated());
 
-        return redirect('/projects');
+        return redirect($project->path());
     }
 
     /**
@@ -62,7 +60,9 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        return view('projects.show', compact('project'));
+        $tasks = $project->tasks()->orderBy('created_at')->get();
+
+        return view('projects.show', compact('project', 'tasks'));
     }
 
     /**

@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use App\Models\Project;
-use Illuminate\Http\Request;
 use App\Http\Requests\Tasks\TaskStoreRequest;
+use App\Http\Requests\Tasks\TaskUpdateRequest;
 
 class TaskController extends Controller
 {
@@ -75,12 +75,22 @@ class TaskController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Project  $project
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Task $task)
+    public function update(TaskUpdateRequest $request, Project $project, Task $task)
     {
-        //
+        $attributes = array_merge(
+            $request->validated(),
+            [
+                'completed' => $request->has('completed')
+            ]
+        );
+
+        $task->update($attributes);
+
+        return redirect($project->path());
     }
 
     /**

@@ -20,8 +20,8 @@
             <section class="mb-6">
                 <h3 class="text-lg text-gray-400 mb-4">Tasks</h3>
 
-                @forelse ($project->tasks as $task)
-                    <x-card class="mb-4">{{ $task->body }}</x-card>
+                @forelse ($tasks as $task)
+                    <x-task-card class="mb-4" :task="$task" />
                 @empty
                     <p>No tasks added yet.</p>
                 @endforelse
