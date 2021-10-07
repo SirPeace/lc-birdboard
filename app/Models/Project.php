@@ -22,7 +22,8 @@ class Project extends Model
 
     public function tasks(): HasMany
     {
-        return $this->hasMany(Task::class, 'project_id', 'id');
+        return $this->hasMany(Task::class, 'project_id', 'id')
+            ->oldest('created_at');
     }
 
     public function addTask(Task $task): void

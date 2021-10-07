@@ -70,4 +70,20 @@ class ShowProjectsTest extends TestCase
 
         $this->get("/projects/1")->assertStatus(404);
     }
+
+    /** @test */
+    public function latest_updated_projects_are_shown_first()
+    {
+        /** @var User $user */
+        $user = User::factory()->create();
+        $this->signIn($user);
+
+        $second = Project::factory()->for($user, 'owner')->create();
+        $first = Project::factory()->for($user, 'owner')->create([
+            'updated_at' => now()->addMinute()
+        ]);
+
+        $this->get('/projects')
+            ->assertSeeInOrder([$first->title, $second->title]);
+    }
 }

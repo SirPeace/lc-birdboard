@@ -60,9 +60,9 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        $tasks = $project->tasks()->orderBy('created_at')->get();
+        $project->load(['tasks']);
 
-        return view('projects.show', compact('project', 'tasks'));
+        return view('projects.show', compact('project'));
     }
 
     /**
