@@ -4,13 +4,10 @@ namespace Tests\Feature\Projects;
 
 use App\Models\Project;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ShowProjectsTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function guest_cannot_see_nor_view_others_projects()
     {

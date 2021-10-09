@@ -2,16 +2,11 @@
 
 namespace Tests\Feature\Tasks;
 
-use App\Models\Project;
 use App\Models\Task;
-use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class UpdateTaskTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function guest_cannot_update_project_task()
     {

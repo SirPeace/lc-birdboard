@@ -6,12 +6,9 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Models\Project;
 use App\Models\Task;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ProjectTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function it_has_path()
     {

@@ -4,13 +4,12 @@ namespace Tests\Feature\Tasks;
 
 use App\Models\Project;
 use App\Models\Task;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class CreateTaskTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use WithFaker;
 
     public function setUp(): void
     {
