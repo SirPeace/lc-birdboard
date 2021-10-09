@@ -18,6 +18,6 @@ class Task extends Model
 
     public function path(): string
     {
-        return $this->project->path()."/tasks/$this->id";
+        return "/tasks/$this->id";
     }
 }
