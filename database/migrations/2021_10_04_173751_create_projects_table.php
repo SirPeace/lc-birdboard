@@ -18,6 +18,7 @@ class CreateProjectsTable extends Migration
 
             $table->string('title', 255);
             $table->string('description', 255);
+            $table->text('notes')->nullable();
 
             $table->foreignId('owner_id')
                 ->constrained('users')

@@ -6,33 +6,15 @@
         @csrf
 
         <div class="flex items-center space-x-3">
-            <input
+            <x-live-input
+                :url="$task->path()"
+                method="PATCH"
+                field="body"
+                :value="$task->body"
                 type="text"
                 name="body"
-                value="{{ $task->body }}"
                 class="px-4 py-3 rounded bg-gray-50 border-none w-full"
-                oninput="
-                    // Update comment body as user stops typing for 500ms
-                    if (window.ajaxTimeout) {
-                        clearTimeout(window.ajaxTimeout)
-                        window.ajaxTimeout = null
-                    }
-
-                    window.ajaxTimeout = setTimeout(() => {
-                        fetch('{{ $task->path() }}', {
-                            method: 'POST',
-                            body: JSON.stringify({
-                                body: this.value,
-                                _method: 'PATCH',
-                                _token: document.querySelector('meta[name=csrf-token]').content
-                            }),
-                            headers: [
-                                ['Content-Type', 'application/json']
-                            ]
-                        })
-                    }, 500)
-                "
-            >
+            />
 
             <input
                 type="checkbox"

@@ -8,7 +8,7 @@
 
         <button
             x-data="{}"
-            @click="console.log($dispatch('open-add-task-modal'))"
+            @click="$dispatch('open-add-task-modal')"
             class="text-white bg-blue px-8 py-2 rounded-xl hover:bg-blue-dark transition self-end lg:self-auto"
         >
             Add Task
@@ -30,7 +30,16 @@
             <section>
                 <h3 class="text-lg text-gray-400 mb-4">Notes</h3>
 
-                <x-card>Lorem ipsum</x-card>
+                <x-live-input
+                    textarea
+                    :url="$project->path()"
+                    method="PATCH"
+                    field="notes"
+                    :value="$project->notes"
+                    class="rounded-lg bg-white p-3 shadow border-none w-full"
+                    rows="10"
+                    placeholder="Project notes here..."
+                />
             </section>
         </div>
 

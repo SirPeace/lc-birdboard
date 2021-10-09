@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Project;
-use Illuminate\Http\Request;
 use App\Http\Requests\Projects\ProjectStoreRequest;
+use App\Http\Requests\Projects\ProjectUpdateRequest;
 
 class ProjectController extends Controller
 {
@@ -79,13 +79,15 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Projects\ProjectUpdateRequest  $request
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
+    public function update(ProjectUpdateRequest $request, Project $project)
     {
-        //
+        $project->update($request->validated());
+
+        return redirect($project->path());
     }
 
     /**
