@@ -16,8 +16,8 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
 
-            $table->string('title');
-            $table->text('description');
+            $table->string('title', 255);
+            $table->string('description', 255);
 
             $table->foreignId('owner_id')
                 ->constrained('users')

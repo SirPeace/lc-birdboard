@@ -48,7 +48,7 @@ class CreateProjectTest extends TestCase
     }
 
     /** @test */
-    public function project_requires_title()
+    public function project_requires_title_less_than_255_chars()
     {
         $this->signIn();
 
@@ -56,14 +56,28 @@ class CreateProjectTest extends TestCase
 
         $this->post('/projects', $attributes)
             ->assertSessionHasErrors(['title']);
+
+        $attributes = Project::factory()->raw([
+            'title' => str_repeat('a', 256)
+        ]);
+
+        $this->post('/projects', $attributes)
+            ->assertSessionHasErrors(['title']);
     }
 
     /** @test */
-    public function project_requires_description()
+    public function project_requires_description_less_than_255_chars()
     {
         $this->signIn();
 
         $attributes = Project::factory()->raw(['description' => '']);
+
+        $this->post('/projects', $attributes)
+            ->assertSessionHasErrors(['description']);
+
+        $attributes = Project::factory()->raw([
+            'description' => str_repeat('a', 256)
+        ]);
 
         $this->post('/projects', $attributes)
             ->assertSessionHasErrors(['description']);
