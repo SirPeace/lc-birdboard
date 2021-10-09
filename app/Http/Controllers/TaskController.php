@@ -79,7 +79,7 @@ class TaskController extends Controller
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(TaskUpdateRequest $request, Project $project, Task $task)
+    public function update(TaskUpdateRequest $request, Task $task)
     {
         $attributes = array_merge(
             $request->validated(),
@@ -90,7 +90,7 @@ class TaskController extends Controller
 
         $task->update($attributes);
 
-        return redirect($project->path());
+        return redirect($task->project->path());
     }
 
     /**
