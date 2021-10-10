@@ -3,6 +3,14 @@
     <x-modals.create-project-modal />
     <!-- Modals -->
 
+    <x-slot name="sidebar">
+        <h3 class="text-xl text-gray-400 mb-4">Latest Activity</h3>
+
+        <ul>
+            <li>No activity is present yet...</li>
+        </ul>
+    </x-slot>
+
     <div class="flex justify-between items-end mb-6 px-3 lg:px-0">
         <span class="text-gray-400">My projects</span>
         <x-controls.primary-button x-data="{}" @click="$dispatch('open-create-project-modal')">

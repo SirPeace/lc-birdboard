@@ -17,7 +17,7 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+        <div class="flex flex-col min-h-screen bg-gray-100">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
@@ -29,10 +29,22 @@
                 </header>
             @endif
 
-            <!-- Page Content -->
-            <main class="container mx-auto pt-8 pb-4">
-                {{ $slot }}
-            </main>
+            <div class="flex-1 container mx-auto flex justify-between min-h-full">
+                <!-- Page Content -->
+                <main
+                    class="pt-8 pb-4 flex-1"
+                    @if (Route::is('project.show') || Route::is('project.index')) style="margin-right: 20rem" @endif
+                >
+                    {{ $slot }}
+                </main>
+
+                @if ($sidebar)
+                    <!-- Sidebar -->
+                    <aside class="fixed right-0 z-1 bg-gray-50 w-80 h-full p-6">
+                        {{ $sidebar }}
+                    </aside>
+                @endif
+            </div>
         </div>
     </body>
 </html>

@@ -11,6 +11,10 @@ class Task extends Model
 
     protected $touches = ['project'];
 
+    protected $casts = [
+        'completed' => 'boolean'
+    ];
+
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class, 'project_id', 'id');
@@ -23,15 +27,19 @@ class Task extends Model
 
     public function complete(): void
     {
-        $this->update(['completed' => true]);
+        if ($this->completed === false) {
+            $this->update(['completed' => true]);
 
-        $this->project->recordActivity('task_completed');
+            $this->project->recordActivity('task_completed');
+        }
     }
 
     public function incomplete(): void
     {
-        $this->update(['completed' => false]);
+        if ($this->completed === true) {
+            $this->update(['completed' => false]);
 
-        $this->project->recordActivity('task_incompleted');
+            $this->project->recordActivity('task_incompleted');
+        }
     }
 }

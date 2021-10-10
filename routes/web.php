@@ -16,8 +16,8 @@ use App\Http\Controllers\ProjectController;
 */
 
 Route::middleware('auth')->group(function () {
-    Route::get('/projects', [ProjectController::class, 'index']);
-    Route::get('/projects/{project}', [ProjectController::class, 'show']);
+    Route::get('/projects', [ProjectController::class, 'index'])->name('project.index');
+    Route::get('/projects/{project}', [ProjectController::class, 'show'])->name('project.show');
     Route::post('/projects', [ProjectController::class, 'store']);
     Route::patch('/projects/{project}', [ProjectController::class, 'update']);
 

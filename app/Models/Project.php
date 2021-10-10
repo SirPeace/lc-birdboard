@@ -33,7 +33,7 @@ class Project extends Model
 
     public function activity(): HasMany
     {
-        return $this->hasMany(Activity::class, 'project_id', 'id');
+        return $this->hasMany(Activity::class, 'project_id', 'id')->latest();
     }
 
     public function recordActivity(string $slug): void

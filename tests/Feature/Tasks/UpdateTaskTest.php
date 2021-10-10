@@ -86,9 +86,9 @@ class UpdateTaskTest extends TestCase
     /** @test */
     public function task_completed_field_is_updated_correctly()
     {
-        $this->task->completed = false;
-
         $this->signIn($this->task->project->owner);
+
+        $this->assertFalse($this->task->completed);
 
         $this->patch($this->task->path(), ['body' => '1', 'completed' => '1']);
 
@@ -103,5 +103,27 @@ class UpdateTaskTest extends TestCase
             'id' => $this->task->id,
             'completed' => false,
         ]);
+    }
+
+    /** @test */
+    public function activity_is_not_recorded_if_completed_field_is_not_updated()
+    {
+        $this->actingAs($this->task->project->owner)
+            ->patch($this->task->path(), [
+                'body' => '0',
+                'completed' => '0'
+            ]);
+
+        $this->assertDatabaseCount('activities', 2);
+
+        $completedTask = Task::factory()->create(['completed' => true]);
+
+        $this->actingAs($completedTask->project->owner)
+            ->patch($completedTask->path(), [
+                'body' => '1',
+                'completed' => '1'
+            ]);
+
+        $this->assertDatabaseCount('activities', 4);
     }
 }

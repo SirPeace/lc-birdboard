@@ -4,6 +4,16 @@
     <x-modals.edit-project-modal :project="$project" />
     <!-- Modals -->
 
+    <x-slot name="sidebar">
+        <h3 class="text-xl text-gray-400 mb-4">Latest Activity</h3>
+
+        <ul class="space-y-3">
+            @foreach($project->activity as $item)
+                <x-activity-item :item="$item" />
+            @endforeach
+        </ul>
+    </x-slot>
+
     <header x-data="{}" class="flex justify-between flex-col lg:flex-row lg:items-center mb-4 px-3 lg:px-0">
         <div class="flex flex-col lg:flex-row lg:items-center">
             <span class="inline-block text-gray-400 mr-4 mb-4 lg:mb-0">
