@@ -3,12 +3,13 @@
 namespace Tests\Feature\Activity;
 
 use App\Models\Project;
+use App\Models\Task;
 use Tests\TestCase;
 
 class ActivityFeedTest extends TestCase
 {
     /** @test */
-    public function creating_project_generates_activity()
+    public function creating_project_records_activity()
     {
         $project = Project::factory()->create();
 
@@ -20,7 +21,7 @@ class ActivityFeedTest extends TestCase
     }
 
     /** @test */
-    public function updating_project_generates_activity()
+    public function updating_project_records_activity()
     {
         $project = Project::factory()->create();
 
@@ -30,6 +31,32 @@ class ActivityFeedTest extends TestCase
         $this->assertEquals(
             'Project is updated',
             $project->activity[1]->description
+        );
+    }
+
+    /** @test */
+    public function creating_project_task_records_activity()
+    {
+        $task = Task::factory()->create();
+
+        $this->assertCount(2, $task->project->activity);
+        $this->assertEquals(
+            'Task is created',
+            $task->project->activity[1]->description
+        );
+    }
+
+    /** @test */
+    public function completing_project_task_records_activity()
+    {
+        $task = Task::factory()->create();
+
+        $task->complete();
+
+        $this->assertCount(3, $task->project->activity);
+        $this->assertEquals(
+            'Task is completed',
+            $task->project->activity[2]->description
         );
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\Activity;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Project;
@@ -51,6 +52,18 @@ class ProjectTest extends TestCase
         $this->assertDatabaseHas(
             'tasks',
             array_merge($taskAttributes, ['project_id' => $project->id])
+        );
+    }
+
+    /** @test */
+    public function it_has_activity()
+    {
+        $project = Project::factory()->create();
+
+        $this->assertTrue(
+            $project->activity->every(
+                fn ($activityItem) => $activityItem instanceof Activity
+            )
         );
     }
 }

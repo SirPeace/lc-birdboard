@@ -20,4 +20,11 @@ class Task extends Model
     {
         return "/tasks/$this->id";
     }
+
+    public function complete(): void
+    {
+        $this->update(['completed' => true]);
+
+        $this->project->recordActivity('Task is completed');
+    }
 }
