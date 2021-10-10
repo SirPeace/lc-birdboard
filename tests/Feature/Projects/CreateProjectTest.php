@@ -36,9 +36,8 @@ class CreateProjectTest extends TestCase
             'description' => $this->faker->paragraph()
         ];
 
-        $response = $this->post('/projects', $attributes);
-
-        $response->assertRedirect(Project::where($attributes)->first()->path());
+        $this->post('/projects', $attributes)
+            ->assertRedirect(Project::where($attributes)->first()->path());
 
         $this->assertDatabaseHas('projects', $attributes);
 
@@ -55,9 +54,7 @@ class CreateProjectTest extends TestCase
         $this->post('/projects', $attributes)
             ->assertSessionHasErrors(['title']);
 
-        $attributes = Project::factory()->raw([
-            'title' => str_repeat('a', 256)
-        ]);
+        $attributes['title'] = str_repeat('a', 256);
 
         $this->post('/projects', $attributes)
             ->assertSessionHasErrors(['title']);
@@ -73,9 +70,7 @@ class CreateProjectTest extends TestCase
         $this->post('/projects', $attributes)
             ->assertSessionHasErrors(['description']);
 
-        $attributes = Project::factory()->raw([
-            'description' => str_repeat('a', 256)
-        ]);
+        $attributes['description'] = str_repeat('a', 256);
 
         $this->post('/projects', $attributes)
             ->assertSessionHasErrors(['description']);

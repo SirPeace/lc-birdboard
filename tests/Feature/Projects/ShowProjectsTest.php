@@ -11,10 +11,10 @@ class ShowProjectsTest extends TestCase
     /** @test */
     public function guest_cannot_see_nor_view_others_projects()
     {
-        $projects = Project::factory(2)->create();
+        $project = Project::factory()->create();
 
         $this->get('/projects')->assertRedirect('/login');
-        $this->get($projects[0]->path())->assertRedirect('/login');
+        $this->get($project->path())->assertRedirect('/login');
     }
 
     /** @test */
@@ -30,6 +30,7 @@ class ShowProjectsTest extends TestCase
             ->assertDontSee($projects[1]->title);
 
         $this->get($projects[0]->path())->assertStatus(403);
+        $this->get($projects[1]->path())->assertStatus(403);
     }
 
     /** @test */
@@ -37,9 +38,9 @@ class ShowProjectsTest extends TestCase
     {
         /** @var User $user */
         $user = User::factory()->create();
-        $this->signIn($user);
-
         $projects = Project::factory(2)->for($user, 'owner')->create();
+
+        $this->signIn($user);
 
         $this->get('/projects')
             ->assertSee($projects[0]->title)
@@ -51,9 +52,9 @@ class ShowProjectsTest extends TestCase
     {
         /** @var User $user */
         $user = User::factory()->create();
-        $this->signIn($user);
-
         $project = Project::factory()->for($user, 'owner')->create();
+
+        $this->signIn($user);
 
         $this->get($project->path())
             ->assertSee($project->title)

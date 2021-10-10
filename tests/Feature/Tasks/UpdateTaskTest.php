@@ -7,12 +7,17 @@ use Tests\TestCase;
 
 class UpdateTaskTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->task = Task::factory()->create();
+    }
+
     /** @test */
     public function guest_cannot_update_project_task()
     {
-        $task = Task::factory()->create();
-
-        $this->patch($task->path(), ['body' => 'New task body'])
+        $this->patch($this->task->path(), ['body' => 'New task body'])
             ->assertRedirect('/login');
 
         $this->assertDatabaseMissing('tasks', ['body' => 'New task body']);
@@ -21,11 +26,9 @@ class UpdateTaskTest extends TestCase
     /** @test */
     public function user_cannot_update_tasks_for_foreign_projects()
     {
-        $task = Task::factory()->create();
-
         $this->signIn();
 
-        $this->patch($task->path(), ['body' => 'New task body'])
+        $this->patch($this->task->path(), ['body' => 'New task body'])
             ->assertStatus(403);
 
         $this->assertDatabaseMissing('tasks', ['body' => 'New task body']);
@@ -34,36 +37,32 @@ class UpdateTaskTest extends TestCase
     /** @test */
     public function user_can_update_tasks_for_owned_projects()
     {
-        $this->withoutExceptionHandling();
-
-        $task = Task::factory()->create();
-
-        $this->signIn($task->project->owner);
+        $this->signIn($this->task->project->owner);
 
         $attributes = [
             'body' => 'New task body',
             'completed' => '1'
         ];
 
-        $this->patch($task->path(), $attributes)
-            ->assertRedirect($task->project->path());
+        $this->patch($this->task->path(), $attributes)
+            ->assertRedirect($this->task->project->path());
 
         $this->assertDatabaseHas('tasks', $attributes);
 
-        $this->get($task->project->path())
+        $this->get($this->task->project->path())
             ->assertSee($attributes['body']);
     }
 
     /** @test */
     public function task_requires_body()
     {
-        $task = Task::factory()->create();
+        $attributes = Task::factory()
+            ->for($this->task->project)
+            ->raw(['body' => '']);
 
-        $attributes = Task::factory()->for($task->project)->raw(['body' => '']);
+        $this->signIn($this->task->project->owner);
 
-        $this->signIn($task->project->owner);
-
-        $this->patch($task->path(), $attributes)
+        $this->patch($this->task->path(), $attributes)
             ->assertSessionHasErrors(['body']);
 
         $this->assertDatabaseMissing('tasks', $attributes);
@@ -72,15 +71,13 @@ class UpdateTaskTest extends TestCase
     /** @test */
     public function task_completed_field_must_be_boolean()
     {
-        $task = Task::factory()->create();
+        $attributes = Task::factory()
+            ->for($this->task->project)
+            ->raw(['completed' => 'alert("Hello there")']);
 
-        $attributes = Task::factory()->for($task->project)->raw([
-            'completed' => 'alert("Hello there")'
-        ]);
+        $this->signIn($this->task->project->owner);
 
-        $this->signIn($task->project->owner);
-
-        $this->patch($task->path(), $attributes)
+        $this->patch($this->task->path(), $attributes)
             ->assertSessionHasErrors(['completed']);
 
         $this->assertDatabaseMissing('tasks', $attributes);
@@ -89,23 +86,21 @@ class UpdateTaskTest extends TestCase
     /** @test */
     public function task_completed_field_is_updated_correctly()
     {
-        $this->withoutExceptionHandling();
+        $this->task->completed = false;
 
-        $task = Task::factory()->create(['completed' => false]);
+        $this->signIn($this->task->project->owner);
 
-        $this->signIn($task->project->owner);
-
-        $this->patch($task->path(), ['body' => '1', 'completed' => '1']);
+        $this->patch($this->task->path(), ['body' => '1', 'completed' => '1']);
 
         $this->assertDatabaseHas('tasks', [
-            'id' => $task->id,
+            'id' => $this->task->id,
             'completed' => true,
         ]);
 
-        $this->patch($task->path(), ['body' => '1']);
+        $this->patch($this->task->path(), ['body' => '1']);
 
         $this->assertDatabaseHas('tasks', [
-            'id' => $task->id,
+            'id' => $this->task->id,
             'completed' => false,
         ]);
     }

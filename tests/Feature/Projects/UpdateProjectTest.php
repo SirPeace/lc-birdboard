@@ -48,11 +48,10 @@ class UpdateProjectTest extends TestCase
     {
         $this->signIn($this->project->owner);
 
-        $response = $this->patch($this->project->path(), $this->attributes);
-
-        $response->assertRedirect(
-            Project::where($this->attributes)->first()->path()
-        );
+        $this->patch($this->project->path(), $this->attributes)
+            ->assertRedirect(
+                Project::where($this->attributes)->first()->path()
+            );
 
         $this->assertDatabaseHas('projects', $this->attributes);
 
