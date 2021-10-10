@@ -81,14 +81,9 @@ class TaskController extends Controller
      */
     public function update(TaskUpdateRequest $request, Task $task)
     {
-        $attributes = array_merge(
-            $request->validated(),
-            [
-                'completed' => $request->has('completed')
-            ]
-        );
+        $task->update($request->validated());
 
-        $task->update($attributes);
+        $request->completed ? $task->complete() : $task->incomplete();
 
         return redirect($task->project->path());
     }
