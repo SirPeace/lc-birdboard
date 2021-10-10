@@ -16,4 +16,15 @@ class TaskObserver
     {
         $task->project->recordActivity('task_created');
     }
+
+    /**
+     * Handle the Task "deleted" event.
+     *
+     * @param  \App\Models\Task  $task
+     * @return void
+     */
+    public function deleted(Task $task)
+    {
+        $task->project->recordActivity('task_deleted');
+    }
 }
