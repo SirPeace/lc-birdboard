@@ -40,7 +40,7 @@
 
                 @if ($sidebar)
                     <!-- Sidebar -->
-                    <aside class="fixed right-0 z-1 bg-gray-50 w-80 h-full p-6">
+                    <aside class="fixed right-0 bg-gray-50 w-80 h-full p-6 overflow-y-auto -mt-16 pt-24">
                         {{ $sidebar }}
                     </aside>
                 @endif

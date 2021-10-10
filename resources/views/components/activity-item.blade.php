@@ -11,11 +11,24 @@
             @break
 
         @case('task_created')
-            You created the task
+            You created the task:
+            <p>
+                <strong><q>{{ $item->subject->body }}</q></strong>
+            </p>
             @break
 
-        @case('task_updated')
-            You updated the task
+        @case('task_completed')
+            You completed the task:
+            <p>
+                <strong><q>{{ $item->subject->body }}</q></strong>
+            </p>
+            @break
+
+        @case('task_incompleted')
+            You incompleted the task:
+            <p>
+                <strong><q>{{ $item->subject->body }}</q></strong>
+            </p>
             @break
 
         @case('task_deleted')

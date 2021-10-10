@@ -69,21 +69,6 @@ class UpdateTaskTest extends TestCase
     }
 
     /** @test */
-    public function task_completed_field_must_be_boolean()
-    {
-        $attributes = Task::factory()
-            ->for($this->task->project)
-            ->raw(['completed' => 'alert("Hello there")']);
-
-        $this->signIn($this->task->project->owner);
-
-        $this->patch($this->task->path(), $attributes)
-            ->assertSessionHasErrors(['completed']);
-
-        $this->assertDatabaseMissing('tasks', $attributes);
-    }
-
-    /** @test */
     public function task_completed_field_is_updated_correctly()
     {
         $this->signIn($this->task->project->owner);

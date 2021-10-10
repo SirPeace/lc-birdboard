@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Task extends Model
 {
@@ -30,7 +31,7 @@ class Task extends Model
         if ($this->completed === false) {
             $this->update(['completed' => true]);
 
-            $this->project->recordActivity('task_completed');
+            $this->recordActivity('task_completed');
         }
     }
 
@@ -39,7 +40,20 @@ class Task extends Model
         if ($this->completed === true) {
             $this->update(['completed' => false]);
 
-            $this->project->recordActivity('task_incompleted');
+            $this->recordActivity('task_incompleted');
         }
+    }
+
+    public function activities(): MorphMany
+    {
+        return $this->morphMany(Activity::class, 'subject');
+    }
+
+    public function recordActivity(string $slug): void
+    {
+        $this->activities()->create([
+            'slug' => $slug,
+            'project_id' => $this->project_id
+        ]);
     }
 }

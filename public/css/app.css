@@ -927,6 +927,12 @@ select {
 .-mt-px {
 	margin-top: -1px;
 }
+.-mt-8 {
+	margin-top: -2rem;
+}
+.-mt-16 {
+	margin-top: -4rem;
+}
 .block {
 	display: block;
 }
@@ -1357,6 +1363,15 @@ select {
 }
 .pb-6 {
 	padding-bottom: 1.5rem;
+}
+.pt-16 {
+	padding-top: 4rem;
+}
+.pt-20 {
+	padding-top: 5rem;
+}
+.pt-24 {
+	padding-top: 6rem;
 }
 .text-left {
 	text-align: left;

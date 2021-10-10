@@ -14,10 +14,7 @@ class RecordProjectActivityTest extends TestCase
         $project = Project::factory()->create();
 
         $this->assertCount(1, $project->activity);
-        $this->assertEquals(
-            'created',
-            $project->activity->last()->slug
-        );
+        $this->assertEquals('created', $project->activity->last()->slug);
     }
 
     /** @test */
@@ -28,10 +25,7 @@ class RecordProjectActivityTest extends TestCase
         $project->update(['title' => 'Changed']);
 
         $this->assertCount(2, $project->activity);
-        $this->assertEquals(
-            'updated',
-            $project->activity->last()->slug
-        );
+        $this->assertEquals('updated', $project->activity->last()->slug);
     }
 
     /** @test */
@@ -40,10 +34,11 @@ class RecordProjectActivityTest extends TestCase
         $task = Task::factory()->create();
 
         $this->assertCount(2, $task->project->activity);
-        $this->assertEquals(
-            'task_created',
-            $task->project->activity->last()->slug
-        );
+
+        $lastActivity = $task->project->activity->last();
+
+        $this->assertEquals('task_created', $lastActivity->slug);
+        $this->assertTrue($lastActivity->subject->is($task));
     }
 
     /** @test */
@@ -54,10 +49,11 @@ class RecordProjectActivityTest extends TestCase
         $task->complete();
 
         $this->assertCount(3, $task->project->activity);
-        $this->assertEquals(
-            'task_completed',
-            $task->project->activity->last()->slug
-        );
+
+        $lastActivity = $task->project->activity->last();
+
+        $this->assertEquals('task_completed', $lastActivity->slug);
+        $this->assertTrue($lastActivity->subject->is($task));
     }
 
     /** @test */
@@ -68,10 +64,11 @@ class RecordProjectActivityTest extends TestCase
         $task->incomplete();
 
         $this->assertCount(3, $task->project->activity);
-        $this->assertEquals(
-            'task_incompleted',
-            $task->project->activity->last()->slug
-        );
+
+        $lastActivity = $task->project->activity->last();
+
+        $this->assertEquals('task_incompleted', $lastActivity->slug);
+        $this->assertTrue($lastActivity->subject->is($task));
     }
 
     /** @test */
@@ -82,9 +79,9 @@ class RecordProjectActivityTest extends TestCase
         $task->delete();
 
         $this->assertCount(3, $task->project->activity);
-        $this->assertEquals(
-            'task_deleted',
-            $task->project->activity->last()->slug
-        );
+
+        $lastActivity = $task->project->activity->last();
+
+        $this->assertEquals('task_deleted', $lastActivity->slug);
     }
 }
