@@ -16,10 +16,10 @@ class CreateTasksTable extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
 
+            $table->foreignId('project_id')->constrained()->onDelete('cascade');
+
             $table->text('body');
             $table->boolean('completed')->default(false);
-
-            $table->foreignId('project_id')->constrained()->onDelete('cascade');
 
             $table->timestamps();
         });

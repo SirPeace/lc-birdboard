@@ -30,4 +30,9 @@ class Project extends Model
     {
         $this->tasks()->save($task);
     }
+
+    public function activity(): HasMany
+    {
+        return $this->hasMany(Activity::class, 'project_id', 'id');
+    }
 }
