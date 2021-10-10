@@ -1,12 +1,12 @@
 @props(['task'])
 
-<x-card {{ $attributes->merge(['class']) }}>
+<x-cards.card {{ $attributes->merge(['class']) }}>
     <form action="{{ $task->path() }}" method="POST">
         @method('PATCH')
         @csrf
 
         <div class="flex items-center space-x-3">
-            <x-live-input
+            <x-controls.live-input
                 :url="$task->path()"
                 method="PATCH"
                 field="body"
@@ -26,4 +26,4 @@
             >
         </div>
     </form>
-</x-card>
+</x-cards.card>

@@ -62,26 +62,32 @@ class UpdateProjectTest extends TestCase
     }
 
     /** @test */
-    public function project_title_must_be_less_than_255_chars()
+    public function project_title_must_be_between_1_and_255_chars()
     {
         $this->signIn($this->project->owner);
 
-        $attributes = Project::factory()->raw([
-            'title' => str_repeat('a', 256)
-        ]);
+        $attributes = Project::factory()->raw(['title' => '']);
+
+        $this->patch($this->project->path(), $attributes)
+            ->assertSessionHasErrors(['title']);
+
+        $attributes['title'] = str_repeat('a', 256);
 
         $this->patch($this->project->path(), $attributes)
             ->assertSessionHasErrors(['title']);
     }
 
     /** @test */
-    public function project_description_must_be_less_than_255_chars()
+    public function project_description_must_be_between_1_and_255_chars()
     {
         $this->signIn($this->project->owner);
 
-        $attributes = Project::factory()->raw([
-            'description' => str_repeat('a', 256)
-        ]);
+        $attributes = Project::factory()->raw(['description' => '']);
+
+        $this->patch($this->project->path(), $attributes)
+            ->assertSessionHasErrors(['description']);
+
+        $attributes['description'] = str_repeat('a', 256);
 
         $this->patch($this->project->path(), $attributes)
             ->assertSessionHasErrors(['description']);

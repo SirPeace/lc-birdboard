@@ -1,6 +1,6 @@
 @props(['title', 'description', 'link' => null])
 
-<x-card
+<x-cards.card
     {{ $attributes->merge(['class']) }}
     onclick="
         const link = '{{ $link }}'
@@ -19,4 +19,4 @@
     </div>
 
     <p class="px-2 text-gray-400">{{ $description }}</p>
-</x-card>
+</x-cards.card>

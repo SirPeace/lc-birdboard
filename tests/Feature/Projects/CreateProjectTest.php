@@ -18,7 +18,6 @@ class CreateProjectTest extends TestCase
             'description' => $this->faker->paragraph()
         ];
 
-        $this->get('/projects/create')->assertRedirect('/login');
         $this->post('/projects', $attributes)->assertRedirect('/login');
 
         $this->assertDatabaseMissing('projects', $attributes);
@@ -28,8 +27,6 @@ class CreateProjectTest extends TestCase
     public function user_can_create_project()
     {
         $this->signIn();
-
-        $this->get('/projects/create')->assertSuccessful();
 
         $attributes = [
             'title' => $this->faker->sentence(),

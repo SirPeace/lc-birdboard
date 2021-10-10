@@ -8,7 +8,7 @@
 <button
     {{
         $attributes->merge([
-            'class' => 'rounded px-8 py-2 rounded-lg border border-blue transition '
+            'class' => 'rounded-lg px-8 py-2 rounded-lg border border-blue transition '
                 .($outlined ? $outlinedClasses : $primaryClasses)
         ])
     }}
