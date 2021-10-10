@@ -15,8 +15,8 @@ class ActivityFeedTest extends TestCase
 
         $this->assertCount(1, $project->activity);
         $this->assertEquals(
-            'Project is created',
-            $project->activity[0]->description
+            'created',
+            $project->activity[0]->slug
         );
     }
 
@@ -29,25 +29,25 @@ class ActivityFeedTest extends TestCase
 
         $this->assertCount(2, $project->activity);
         $this->assertEquals(
-            'Project is updated',
-            $project->activity[1]->description
+            'updated',
+            $project->activity[1]->slug
         );
     }
 
     /** @test */
-    public function creating_project_task_records_activity()
+    public function creating_task_records_project_activity()
     {
         $task = Task::factory()->create();
 
         $this->assertCount(2, $task->project->activity);
         $this->assertEquals(
-            'Task is created',
-            $task->project->activity[1]->description
+            'task_created',
+            $task->project->activity[1]->slug
         );
     }
 
     /** @test */
-    public function completing_project_task_records_activity()
+    public function completing_task_records_project_activity()
     {
         $task = Task::factory()->create();
 
@@ -55,8 +55,8 @@ class ActivityFeedTest extends TestCase
 
         $this->assertCount(3, $task->project->activity);
         $this->assertEquals(
-            'Task is completed',
-            $task->project->activity[2]->description
+            'task_completed',
+            $task->project->activity[2]->slug
         );
     }
 }

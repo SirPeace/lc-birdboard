@@ -61,9 +61,7 @@ class ProjectTest extends TestCase
         $project = Project::factory()->create();
 
         $this->assertTrue(
-            $project->activity->every(
-                fn ($activityItem) => $activityItem instanceof Activity
-            )
+            $project->activity->every(fn ($item) => $item instanceof Activity)
         );
     }
 }

@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Activity;
 use App\Models\Project;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class ActivityFactory extends Factory
 {
@@ -24,7 +25,7 @@ class ActivityFactory extends Factory
     {
         return [
             'project_id' => Project::factory(),
-            'description' => $this->faker->paragraph()
+            'slug' => Str::slug($this->faker->words()),
         ];
     }
 }

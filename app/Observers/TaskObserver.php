@@ -2,7 +2,6 @@
 
 namespace App\Observers;
 
-use App\Models\Activity;
 use App\Models\Task;
 
 class TaskObserver
@@ -15,6 +14,6 @@ class TaskObserver
      */
     public function created(Task $task)
     {
-        $task->project->recordActivity('Task is created');
+        $task->project->recordActivity('task_created');
     }
 }

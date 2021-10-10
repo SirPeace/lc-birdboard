@@ -25,6 +25,6 @@ class Task extends Model
     {
         $this->update(['completed' => true]);
 
-        $this->project->recordActivity('Task is completed');
+        $this->project->recordActivity('task_completed');
     }
 }

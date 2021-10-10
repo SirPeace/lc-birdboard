@@ -36,10 +36,10 @@ class Project extends Model
         return $this->hasMany(Activity::class, 'project_id', 'id');
     }
 
-    public function recordActivity(string $description): void
+    public function recordActivity(string $slug): void
     {
         $this->activity()->create([
-            'description' => $description
+            'slug' => $slug
         ]);
     }
 }
