@@ -17,7 +17,7 @@ class RecordProjectActivityTest extends TestCase
 
         $activity = $project->activity->last();
 
-        $this->assertEquals('created', $activity->slug);
+        $this->assertEquals('project_created', $activity->slug);
         $this->assertNull($activity->changes);
     }
 
@@ -49,7 +49,7 @@ class RecordProjectActivityTest extends TestCase
             ]
         ];
 
-        $this->assertEquals('updated', $activity->slug);
+        $this->assertEquals('project_updated', $activity->slug);
         $this->assertEquals($expectedChanges, $activity->changes);
     }
 

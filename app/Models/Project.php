@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Traits\RecordsActivity;
 
 class Project extends Model
 {
-    use HasFactory;
-
-    public array $old = [];
+    use HasFactory, RecordsActivity;
 
     public function path(): string
     {
@@ -38,26 +37,8 @@ class Project extends Model
         return $this->hasMany(Activity::class, 'project_id', 'id')->latest();
     }
 
-    public function recordActivity(string $slug): void
+    protected static function recordableEvents(): array
     {
-        $activity = $this->activity()->make(compact('slug'));
-
-        if ($slug === 'updated') {
-            $activity->setAttribute('changes', $this->activityChanges());
-        }
-
-        $activity->save();
-    }
-
-    protected function activityChanges(): array
-    {
-        $changes = collect($this->getChanges());
-
-        return [
-            'before' => $changes->map(
-                fn ($_, $key) => @$this->old[$key] ?? null
-            ),
-            'after' => $changes->toArray()
-        ];
+        return ['created', 'updated'];
     }
 }

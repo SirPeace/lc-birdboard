@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Traits\RecordsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Task extends Model
 {
-    use HasFactory;
+    use HasFactory, RecordsActivity;
 
     protected $touches = ['project'];
 
@@ -44,16 +45,13 @@ class Task extends Model
         }
     }
 
-    public function activities(): MorphMany
+    public function activity(): MorphMany
     {
         return $this->morphMany(Activity::class, 'subject');
     }
 
-    public function recordActivity(string $slug): void
+    protected static function recordableEvents(): array
     {
-        $this->activities()->create([
-            'slug' => $slug,
-            'project_id' => $this->project_id
-        ]);
+        return ['created', 'deleted'];
     }
 }

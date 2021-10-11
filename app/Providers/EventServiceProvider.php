@@ -29,7 +29,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Models\Project::observe(Observers\ProjectObserver::class);
-        Models\Task::observe(Observers\TaskObserver::class);
+        //
     }
 }

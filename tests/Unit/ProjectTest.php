@@ -75,6 +75,6 @@ class ProjectTest extends TestCase
         $project->update($newAttributes);
 
         $this->assertDatabaseHas('projects', $newAttributes);
-        $this->assertEquals($oldAttributes, $project->old);
+        $this->assertEquals($oldAttributes, $project->oldAttributes);
     }
 }
