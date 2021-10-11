@@ -20,6 +20,7 @@ class CreateActivitiesTable extends Migration
             $table->nullableMorphs('subject');
 
             $table->string('slug');
+            $table->jsonb('changes')->nullable();
 
             $table->timestamps();
         });

@@ -10,6 +10,8 @@ class Project extends Model
 {
     use HasFactory;
 
+    public array $old = [];
+
     public function path(): string
     {
         return "/projects/{$this->id}";
@@ -38,8 +40,24 @@ class Project extends Model
 
     public function recordActivity(string $slug): void
     {
-        $this->activity()->create([
-            'slug' => $slug
-        ]);
+        $activity = $this->activity()->make(compact('slug'));
+
+        if ($slug === 'updated') {
+            $activity->setAttribute('changes', $this->activityChanges());
+        }
+
+        $activity->save();
+    }
+
+    protected function activityChanges(): array
+    {
+        $changes = collect($this->getChanges());
+
+        return [
+            'before' => $changes->map(
+                fn ($_, $key) => @$this->old[$key] ?? null
+            ),
+            'after' => $changes->toArray()
+        ];
     }
 }

@@ -64,4 +64,17 @@ class ProjectTest extends TestCase
             $project->activity->every(fn ($item) => $item instanceof Activity)
         );
     }
+
+    /** @test */
+    public function old_attributes_are_saved_after_update()
+    {
+        $project = Project::factory()->create();
+        $oldAttributes = $project->getAttributes();
+
+        $newAttributes = Project::factory()->raw();
+        $project->update($newAttributes);
+
+        $this->assertDatabaseHas('projects', $newAttributes);
+        $this->assertEquals($oldAttributes, $project->old);
+    }
 }

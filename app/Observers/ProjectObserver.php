@@ -18,6 +18,17 @@ class ProjectObserver
     }
 
     /**
+     * Handle the project "updating" event.
+     *
+     * @param  \App\Models\Project $project
+     * @return void
+     */
+    public function updating(Project $project)
+    {
+        $project->old = $project->getOriginal();
+    }
+
+    /**
      * Handle the Project "updated" event.
      *
      * @param  \App\Models\Project  $project
