@@ -18,10 +18,7 @@ use App\Http\Controllers\ProjectController;
 Route::permanentRedirect('/', '/projects');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/projects', [ProjectController::class, 'index'])->name('project.index');
-    Route::get('/projects/{project}', [ProjectController::class, 'show'])->name('project.show');
-    Route::post('/projects', [ProjectController::class, 'store']);
-    Route::patch('/projects/{project}', [ProjectController::class, 'update']);
+    Route::resource('projects', ProjectController::class)->except(['create', 'edit']);
 
     Route::post('/projects/{project}/tasks', [TaskController::class, 'store']);
     Route::patch('/tasks/{task}', [TaskController::class, 'update']);

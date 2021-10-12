@@ -33,7 +33,7 @@
                 <!-- Page Content -->
                 <main
                     class="pt-8 pb-4 flex-1"
-                    @if (Route::is('project.show') || Route::is('project.index')) style="margin-right: 20rem" @endif
+                    @if (Route::is('projects.show') || Route::is('projects.index')) style="margin-right: 20rem" @endif
                 >
                     {{ $slot }}
                 </main>
