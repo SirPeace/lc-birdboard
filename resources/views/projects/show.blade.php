@@ -5,13 +5,7 @@
     <!-- Modals -->
 
     <x-slot name="sidebar">
-        <h3 class="text-xl text-gray-400 mb-4">Latest Activity</h3>
-
-        <ul class="space-y-3">
-            @foreach($project->activity as $item)
-                <x-activity-item :item="$item" />
-            @endforeach
-        </ul>
+        <x-activity.feed :project="$project" />
     </x-slot>
 
     <header x-data="{}" class="flex justify-between flex-col lg:flex-row lg:items-center mb-4 px-3 lg:px-0">

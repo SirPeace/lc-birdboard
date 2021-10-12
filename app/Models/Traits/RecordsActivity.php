@@ -35,6 +35,7 @@ trait RecordsActivity
     public function recordActivity(string $slug): void
     {
         $activity = $this->activity()->make([
+            'user_id' => ($this->project ?? $this)->owner->id,
             'slug' => $slug,
             'project_id' => $this->project_id
         ]);
@@ -48,7 +49,7 @@ trait RecordsActivity
 
     protected function activityChanges(): array
     {
-        $changes = collect($this->getChanges());
+        $changes = collect($this->getChanges())->except(['updated_at']);
 
         return [
             'before' => $changes->map(
