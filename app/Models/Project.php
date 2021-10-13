@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Traits\RecordsActivity;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Project extends Model
 {
@@ -40,5 +41,19 @@ class Project extends Model
     protected static function recordableEvents(): array
     {
         return ['created', 'updated'];
+    }
+
+    public function invite(User $user): void
+    {
+        if (auth()->id() !== $this->owner->id) {
+            return;
+        }
+
+        $this->members()->attach($user);
+    }
+
+    public function members(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'project_members');
     }
 }

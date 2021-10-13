@@ -77,4 +77,27 @@ class ProjectTest extends TestCase
         $this->assertDatabaseHas('projects', $newAttributes);
         $this->assertEquals($oldAttributes, $project->oldAttributes);
     }
+
+    /** @test */
+    public function it_has_members()
+    {
+        $project = Project::factory()
+            ->has(User::factory(), 'members')
+            ->create();
+
+        $this->assertContainsOnlyInstancesOf(User::class, $project->members);
+    }
+
+    /** @test */
+    public function it_can_invite_member()
+    {
+        $project = Project::factory()->create();
+        $user = User::factory()->create();
+
+        $this->signIn($project->owner);
+
+        $project->invite($user);
+
+        $this->assertTrue($project->members->last()->is($user));
+    }
 }
