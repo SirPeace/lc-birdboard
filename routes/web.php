@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProjectInvitationsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/projects/{project}/tasks', [TaskController::class, 'store']);
     Route::patch('/tasks/{task}', [TaskController::class, 'update']);
+
+    Route::post('projects/{project}/invitations', [ProjectInvitationsController::class, 'store']);
 });
 
 require __DIR__.'/auth.php';

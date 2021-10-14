@@ -54,7 +54,6 @@ class ShowProjectsTest extends TestCase
 
         $johnProject = Project::factory()->for($john, 'owner')->create();
 
-        $this->signIn($john);
         $johnProject->invite($sally);
 
         $this->signIn($sally);
@@ -85,8 +84,7 @@ class ShowProjectsTest extends TestCase
     /** @test */
     public function latest_updated_projects_are_shown_first()
     {
-        $user = User::factory()->create();
-        $this->signIn($user);
+        $user = $this->signIn();
 
         $second = Project::factory()->for($user, 'owner')->create();
         $first = Project::factory()->for($user, 'owner')->create([

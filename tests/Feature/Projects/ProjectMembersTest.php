@@ -16,16 +16,46 @@ class ProjectMembersTest extends TestCase
     }
 
     /** @test */
-    public function only_project_owner_can_invite_members()
+    public function unauthorized_user_cannot_invite_members_to_project()
+    {
+        $this->post($this->project->path().'/invitations')
+            ->assertRedirect('/login');
+
+        $this->signIn();
+        $this->post($this->project->path().'/invitations')
+            ->assertStatus(403);
+    }
+
+    /** @test */
+    public function project_owner_cannot_invite_nonexisting_members_to_project()
+    {
+        $this->signIn($this->project->owner);
+        $response = $this->post(
+            $this->project->path().'/invitations',
+            ['email' => 'notuser@mail.com']
+        );
+
+        $response->assertSessionHasErrors([
+            'email' => 'User with such email does not exist.'
+        ]);
+
+        $this->assertCount(0, $this->project->members);
+    }
+
+    /** @test */
+    public function project_owner_can_invite_members_to_project()
     {
         $user = User::factory()->create();
 
-        $this->project->invite($user);
+        $this->signIn($this->project->owner);
+        $response = $this->post(
+            $this->project->path().'/invitations',
+            ['email' => $user->email]
+        );
 
-        $this->signIn($user);
-        $this->project->invite($user);
+        $response->assertRedirect($this->project->path());
 
-        $this->assertDatabaseCount('project_members', 0);
+        $this->assertCount(1, $this->project->members);
     }
 
     /** @test */
@@ -33,7 +63,6 @@ class ProjectMembersTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $this->signIn($this->project->owner);
         $this->project->invite($user);
 
         $this->signIn($user);

@@ -45,10 +45,6 @@ class Project extends Model
 
     public function invite(User $user): void
     {
-        if (auth()->id() !== $this->owner->id) {
-            return;
-        }
-
         $this->members()->attach($user);
     }
 
