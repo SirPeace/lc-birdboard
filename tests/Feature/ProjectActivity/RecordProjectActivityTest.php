@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Activity;
+namespace Tests\Feature\ProjectActivity;
 
 use App\Models\Project;
 use App\Models\Task;

@@ -22,9 +22,18 @@
             </x-controls.primary-button>
         </div>
 
-        <div>
+        <div class="flex items-center">
+            <div class="flex space-x-2">
+                @foreach ($project->members as $member)
+                    <x-user-avatar :user="$member"/>
+                @endforeach
+
+                <x-user-avatar :user="$project->owner"/>
+            </div>
+
             <x-controls.primary-button
                 @click="$dispatch('open-edit-project-modal')"
+                class="ml-4"
             >
                 Edit Project
             </x-controls.primary-button>
