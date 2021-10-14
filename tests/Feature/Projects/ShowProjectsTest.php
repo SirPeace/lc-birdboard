@@ -36,7 +36,6 @@ class ShowProjectsTest extends TestCase
     /** @test */
     public function user_can_see_and_view_its_projects()
     {
-        /** @var User $user */
         $user = User::factory()->create();
         $projects = Project::factory(2)->for($user, 'owner')->create();
 
@@ -48,9 +47,23 @@ class ShowProjectsTest extends TestCase
     }
 
     /** @test */
+    public function user_can_see_projects_he_was_invited_in()
+    {
+        $john = User::factory()->create();
+        $sally = User::factory()->create();
+
+        $johnProject = Project::factory()->for($john, 'owner')->create();
+
+        $this->signIn($john);
+        $johnProject->invite($sally);
+
+        $this->signIn($sally);
+        $this->get('/projects')->assertSee($johnProject->title);
+    }
+
+    /** @test */
     public function user_can_view_its_project()
     {
-        /** @var User $user */
         $user = User::factory()->create();
         $project = Project::factory()->for($user, 'owner')->create();
 
@@ -72,7 +85,6 @@ class ShowProjectsTest extends TestCase
     /** @test */
     public function latest_updated_projects_are_shown_first()
     {
-        /** @var User $user */
         $user = User::factory()->create();
         $this->signIn($user);
 
