@@ -69,10 +69,7 @@
         </div>
 
         <div class="lg:w-1/4 px-3 order-1 lg:order-none mb-10 lg:mb-0">
-            <x-cards.project-card
-                :title="$project->title"
-                :description="$project->description"
-            />
+            <x-cards.project-card :project="$project" />
 
             @can('manage', $project)
                 <x-cards.card class="mt-6">

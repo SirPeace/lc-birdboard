@@ -13,10 +13,7 @@ class CreateProjectTest extends TestCase
     /** @test */
     public function guest_cannot_create_project()
     {
-        $attributes = [
-            'title' => $this->faker->sentence(),
-            'description' => $this->faker->paragraph()
-        ];
+        $attributes = Project::factory()->raw(['owner_id' => auth()->id()]);
 
         $this->post('/projects', $attributes)->assertRedirect('/login');
 
@@ -28,10 +25,7 @@ class CreateProjectTest extends TestCase
     {
         $this->signIn();
 
-        $attributes = [
-            'title' => $this->faker->sentence(),
-            'description' => $this->faker->paragraph()
-        ];
+        $attributes = Project::factory()->raw(['owner_id' => auth()->id()]);
 
         $this->post('/projects', $attributes)
             ->assertRedirect(Project::where($attributes)->first()->path());

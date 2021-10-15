@@ -18,13 +18,7 @@
         @forelse ($projects as $project)
             <div class="lg:w-1/3 px-3 pb-6">
                 <x-cards.project-card
-                    :link="'/projects/'.$project->id"
-                    :description="
-                        strlen($project->description) >= 170
-                            ? substr($project->description, 0, 170).'…'
-                            : $project->description
-                    "
-                    :title="$project->title"
+                    :project="$project"
                     class="h-full hover:shadow-lg transition cursor-pointer"
                 />
             </div>
