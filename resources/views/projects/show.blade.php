@@ -73,6 +73,23 @@
                 :title="$project->title"
                 :description="$project->description"
             />
+
+            @can('manage', $project)
+                <x-cards.card class="mt-6">
+                    <h3 class="text-lg mb-6">Invite user</h3>
+
+                    <form action="{{ $project->path() }}/invitations" method="POST">
+                        @csrf
+
+                        <div class="mb-3">
+                            <x-controls.input type="text" name="email" placeholder="Email" :value="old('email')" />
+                            @error('email') <div class="text-red-500 text-sm">{{ $message }}</div> @enderror
+                        </div>
+
+                        <x-controls.primary-button type="submit">Invite user</x-controls.primary-button>
+                    </form>
+                </x-cards.card>
+            @endcan
         </div>
     </div>
 </x-app-layout>

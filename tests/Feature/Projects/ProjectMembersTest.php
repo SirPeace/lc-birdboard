@@ -59,6 +59,26 @@ class ProjectMembersTest extends TestCase
     }
 
     /** @test */
+    public function project_members_cannot_invite_members_to_project()
+    {
+        $user = User::factory()->create();
+
+        $this->project->invite($user);
+
+        $this->assertCount(1, $this->project->members);
+
+        $this->signIn($user);
+        $response = $this->post(
+            $this->project->path().'/invitations',
+            ['email' => User::factory()->create()->email]
+        );
+
+        $response->assertStatus(403);
+
+        $this->assertCount(1, $this->project->members);
+    }
+
+    /** @test */
     public function project_members_can_create_tasks()
     {
         $user = User::factory()->create();
@@ -70,5 +90,25 @@ class ProjectMembersTest extends TestCase
             ->assertRedirect($this->project->path());
 
         $this->assertDatabaseHas('tasks', ['body' => 'New task']);
+    }
+
+    /** @test */
+    public function project_members_can_update_project()
+    {
+        $user = User::factory()->create();
+
+        $this->project->invite($user);
+
+        $fields = Project::factory()->raw();
+
+        $this->signIn($user);
+        $response = $this->patch($this->project->path(), $fields);
+
+        $response->assertRedirect($this->project->path());
+
+        $this->assertDatabaseHas(
+            'projects',
+            collect($fields)->except('owner_id')->toArray()
+        );
     }
 }

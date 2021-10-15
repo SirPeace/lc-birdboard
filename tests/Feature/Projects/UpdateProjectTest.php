@@ -92,4 +92,19 @@ class UpdateProjectTest extends TestCase
         $this->patch($this->project->path(), $attributes)
             ->assertSessionHasErrors(['description']);
     }
+
+    /** @test */
+    public function project_owner_cannot_be_updated()
+    {
+        $this->signIn($this->project->owner);
+
+        $attributes = Project::factory()->raw();
+
+        $this->patch($this->project->path(), $attributes)->assertRedirect();
+
+        $this->assertDatabaseHas(
+            'projects',
+            array_merge($attributes, ['owner_id' => $this->project->owner_id])
+        );
+    }
 }
