@@ -10,24 +10,23 @@
             <div class="space-y-3">
                 <div>
                     <label for="create-project-form__title">Title</label>
-                    <input
-                        type="text"
+                    <x-controls.input
                         name="title"
                         id="create-project-form__title"
-                        class="w-full rounded border-1 border-gray-300"
-                        value="{{ old('title') }}"
-                    >
+                        :value="old('title')"
+                    />
                     @error('title') <div class="text-red-600">{{ $message }}</div> @enderror
                 </div>
 
                 <div>
                     <label for="create-project-form__descrpition">Descrpition</label>
-                    <textarea
+                    <x-controls.input
+                        textarea
+                        :value="old('description')"
                         name="description"
                         id="create-project-form__descrpition"
-                        class="w-full rounded border-1 border-gray-300"
                         rows="5"
-                    >{{ old('description') }}</textarea>
+                    />
                     @error('description') <div class="text-red-600">{{ $message }}</div> @enderror
                 </div>
             </div>

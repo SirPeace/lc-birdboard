@@ -13,23 +13,23 @@
             <div class="space-y-3">
                 <div>
                     <label for="project__title">Title</label>
-                    <input
+                    <x-controls.input
                         type="text"
                         name="title"
-                        value="{{ old('title') ?? $project->title }}"
-                        class="px-4 py-3 rounded bg-gray-50 border-none w-full"
+                        :value="old('title') ?? $project->title"
                         id="project__title"
-                    >
+                    />
+                    @error('title') <span class="text-red-500">{{ $message }}</span> @enderror
                 </div>
                 <div>
                     <label for="project__description">Description</label>
-                    <input
+                    <x-controls.input
                         type="text"
                         name="description"
-                        value="{{ old('description') ?? $project->description }}"
-                        class="px-4 py-3 rounded bg-gray-50 border-none w-full"
+                        :value="old('description') ?? $project->description"
                         id="project__description"
-                    >
+                    />
+                    @error('description') <span class="text-red-500">{{ $message }}</span> @enderror
                 </div>
             </div>
 

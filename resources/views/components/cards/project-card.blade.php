@@ -1,4 +1,4 @@
-@props(['project'])
+@props(['project', 'link' => false])
 
 @php
     $project->description = strlen($project->description) >= 170
@@ -7,17 +7,16 @@
 @endphp
 
 <x-cards.card
-    {{ $attributes->merge(['class']) }}
+    {{ $attributes->merge(['class' => 'flex flex-col']) }}
     onclick="
-        const link = '{{ $project->path() }}'
+        const link = '{{ $link }}' && '{{ $project->path() }}'
 
         if (link) location = link
     "
-    class="flex flex-col"
 >
-    <header class="flex border-l-blue-light border-l-6 mb-3 -mx-3">
-        @if ($project->link)
-            <a href="{{ $project->link }}">
+    <header class="flex border-l-primary-light border-l-6 mb-3 -mx-3">
+        @if ($link)
+            <a href="{{ $project->path() }}">
                 <h2 class="flex-1 text-lg py-3 px-3">{{ $project->title }}</h2>
             </a>
         @else
@@ -25,7 +24,7 @@
         @endif
     </header>
 
-    <p class="px-2 text-gray-400">{{ $project->description }}</p>
+    <p class="px-2 text-muted">{{ $project->description }}</p>
 
     @can('manage', $project)
         <footer class="flex-1 flex items-end justify-end mt-4">

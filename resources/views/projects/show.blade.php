@@ -10,7 +10,7 @@
 
     <header x-data="{}" class="flex justify-between flex-col lg:flex-row lg:items-center mb-4 px-3 lg:px-0">
         <div class="flex flex-col lg:flex-row lg:items-center">
-            <span class="inline-block text-gray-400 mr-4 mb-4 lg:mb-0">
+            <span class="inline-block text-muted mr-4 mb-4 lg:mb-0">
                 <a href="/projects" class="hover:underline">My Projects</a> / {{ $project->title }}
             </span>
 
@@ -40,10 +40,10 @@
         </div>
     </header>
 
-    <div class="flex flex-col lg:flex-row lg:-mx-3">
-        <div class="lg:w-3/4 px-3 lg:mb-0 order-2 lg:order-none">
+    <div class="flex flex-col xl:flex-row xl:-mx-3">
+        <div class="xl:w-2/3 px-3 xl:mb-0 order-2 xl:order-none">
             <section class="mb-6">
-                <h3 class="text-lg text-gray-400 mb-4">Tasks</h3>
+                <h3 class="text-lg mb-4 text-muted">Tasks</h3>
 
                 @forelse ($project->tasks as $task)
                     <x-cards.task-card class="mb-4" :task="$task" />
@@ -53,22 +53,21 @@
             </section>
 
             <section>
-                <h3 class="text-lg text-gray-400 mb-4">Notes</h3>
+                <h3 class="text-lg text-muted mb-4">Notes</h3>
 
                 <x-controls.live-input
                     textarea
                     :url="$project->path()"
-                    method="PATCH"
                     field="notes"
                     :value="$project->notes"
-                    class="rounded-lg bg-white p-3 shadow border-none w-full"
+                    class="rounded-lg bg-card p-3 shadow border-none w-full"
                     rows="10"
                     placeholder="Project notes here..."
                 />
             </section>
         </div>
 
-        <div class="lg:w-1/4 px-3 order-1 lg:order-none mb-10 lg:mb-0">
+        <div class="xl:w-1/3 px-3 order-1 xl:order-none mb-10 xl:mb-0">
             <x-cards.project-card :project="$project" />
 
             @can('manage', $project)

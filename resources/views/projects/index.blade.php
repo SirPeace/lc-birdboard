@@ -3,12 +3,8 @@
     <x-modals.create-project-modal />
     <!-- Modals -->
 
-    <x-slot name="sidebar">
-        <x-activity.feed />
-    </x-slot>
-
     <div class="flex justify-between items-end mb-6 px-3 lg:px-0">
-        <span class="text-gray-400">My projects</span>
+        <span class="text-muted">My projects</span>
         <x-controls.primary-button x-data="{}" @click="$dispatch('open-create-project-modal')">
             Create Project
         </x-controls.primary-button>
@@ -18,6 +14,7 @@
         @forelse ($projects as $project)
             <div class="lg:w-1/3 px-3 pb-6">
                 <x-cards.project-card
+                    link
                     :project="$project"
                     class="h-full hover:shadow-lg transition cursor-pointer"
                 />

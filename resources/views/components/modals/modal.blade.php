@@ -17,7 +17,7 @@
         <!-- Backdrop -->
         <div
             x-show.transition.opacity.duration.300ms="isOpen"
-            class="fixed inset-0 bg-gray-700 bg-opacity-75 transition-opacity"
+            class="fixed inset-0 bg-gray-900 bg-opacity-75 transition-opacity"
             aria-hidden="true"
         ></div>
 
@@ -27,11 +27,11 @@
         <div
             x-show.transition.opacity.duration.300ms="isOpen"
             @click.away="isOpen = false"
-            class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+            class="inline-block align-bottom bg-modal rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
         >
-            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div class="bg-modal px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div class="mt-3 text-center sm:mt-0 sm:text-left">
-                    <h3 class="text-xl font-bold leading-6 font-medium text-gray-900" id="modal-title">
+                    <h3 class="text-xl font-bold leading-6 font-medium" id="modal-title">
                         {{ $title }}
                     </h3>
 

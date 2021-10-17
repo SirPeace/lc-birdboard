@@ -16,31 +16,19 @@
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
-    <body class="font-sans antialiased">
-        <div class="flex flex-col min-h-screen bg-gray-100">
+    <body class="font-sans antialiased {{ auth()->user()?->dark_theme ? 'theme-dark' : 'theme-light' }}">
+        <div class="flex flex-col min-h-screen bg-body text-default">
             @include('layouts.navigation')
 
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
-
-            <div class="flex-1 container mx-auto flex justify-between min-h-full">
+            <div class="flex-1 flex justify-between min-h-full relative">
                 <!-- Page Content -->
-                <main
-                    class="pt-8 pb-4 flex-1"
-                    @if (Route::is('projects.show') || Route::is('projects.index')) style="margin-right: 20rem" @endif
-                >
+                <main class="pt-8 pb-4 flex-1 container mx-auto @if (isset($sidebar)) pr-80 @endif">
                     {{ $slot }}
                 </main>
 
-                @if ($sidebar)
+                @if (isset($sidebar))
                     <!-- Sidebar -->
-                    <aside class="fixed right-0 bg-gray-50 w-80 h-full p-6 overflow-y-auto -mt-16 pt-24">
+                    <aside class="absolute right-0 bg-sidebar w-80 h-full top-0 overflow-y-auto p-4">
                         {{ $sidebar }}
                     </aside>
                 @endif

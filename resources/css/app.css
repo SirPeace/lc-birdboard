@@ -2,6 +2,9 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+@import 'themes/light.css';
+@import 'themes/dark.css';
+
 [x-cloak] {
     display: none;
 }

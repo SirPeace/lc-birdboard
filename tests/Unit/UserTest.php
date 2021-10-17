@@ -39,4 +39,15 @@ class UserTest extends TestCase
         $this->assertCount(0, $nick->allProjects());
         $this->assertCount(0, $nick->projects);
     }
+
+    /** @test */
+    public function it_has_theme_preference()
+    {
+        $user = User::factory()->create();
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'dark_theme' => false
+        ]);
+    }
 }

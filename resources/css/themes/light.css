@@ -1,0 +1,19 @@
+.theme-light {
+    --primary-color: #47cdff;
+    --primary-light-color: #8ae2fe;
+    --primary-dark-color: #45c2ef;
+
+    --text-default-color: #222;
+    --text-muted-color: #a1a1aa;
+
+    --background-body-color: #f4f4f5;
+    --background-card-color: #ffffff;
+    --background-input-color: #fafafa;
+    --background-sidebar-color: #fafafa;
+    --background-navbar-color: #ffffff;
+    --background-modal-color: #ffffff;
+    --background-hover-color: #fafafa;
+
+    --border-input-color: #d4d4d8;
+    --border-navbar-color: #ffffff;
+}

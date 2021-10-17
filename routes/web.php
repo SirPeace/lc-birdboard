@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectInvitationsController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/tasks/{task}', [TaskController::class, 'update']);
 
     Route::post('projects/{project}/invitations', [ProjectInvitationsController::class, 'store']);
+
+    Route::patch('/user', [UserController::class, 'update']);
 });
 
 require __DIR__.'/auth.php';

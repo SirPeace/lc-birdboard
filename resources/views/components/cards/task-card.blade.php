@@ -1,6 +1,6 @@
 @props(['task'])
 
-<x-cards.card {{ $attributes->merge(['class']) }}>
+<x-cards.card {{ $attributes->merge() }}>
     <form action="{{ $task->path() }}" method="POST">
         @method('PATCH')
         @csrf
@@ -8,12 +8,11 @@
         <div class="flex items-center space-x-3">
             <x-controls.live-input
                 :url="$task->path()"
-                method="PATCH"
                 field="body"
                 :value="$task->body"
                 type="text"
                 name="body"
-                class="px-4 py-3 rounded bg-gray-50 border-none w-full"
+                class="px-4 py-3 rounded border-none w-full"
             />
 
             <input
@@ -22,7 +21,7 @@
                 value="1"
                 onchange="this.form.submit()"
                 @if ($task->completed) checked @endif
-                class="rounded-xl border-2 border-blue hover:border-blue-dark transition cursor-pointer w-6 h-6"
+                class="rounded-xl border-2 border-primary hover:border-primary-dark transition cursor-pointer w-6 h-6 bg-input"
             >
         </div>
     </form>

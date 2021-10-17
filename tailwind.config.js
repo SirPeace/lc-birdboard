@@ -28,11 +28,29 @@ module.exports = {
 
             colors: {
                 ...colors,
-                blue: {
-                    DEFAULT: '#47cdff',
-                    light: '#8ae2fe',
-                    dark: '#45c2ef'
-                }
+                'primary': 'var(--primary-color)',
+                'primary-light': 'var(--primary-light-color)',
+                'primary-dark': 'var(--primary-dark-color)',
+            },
+
+            textColor: {
+                'default': 'var(--text-default-color)',
+                'muted': 'var(--text-muted-color)',
+            },
+
+            backgroundColor: {
+                'body': 'var(--background-body-color)',
+                'card': 'var(--background-card-color)',
+                'hover': 'var(--background-hover-color)',
+                'input': 'var(--background-input-color)',
+                'navbar': 'var(--background-navbar-color)',
+                'sidebar': 'var(--background-sidebar-color)',
+                'modal': 'var(--background-modal-color)',
+            },
+
+            borderColor: {
+                'input': 'var(--border-input-color)',
+                'navbar': 'var(--border-navbar-color)',
             }
         },
     },

@@ -10,12 +10,13 @@
         <div class="flex flex-col">
             <div>
                 <label for="task__body">Task description</label>
-                <input
+                <x-controls.input
                     type="text"
                     name="body"
-                    class="px-4 py-3 rounded bg-gray-50 border-none w-full"
+                    :value="old('task')"
                     id="task__body"
-                >
+                />
+                @error('body') <span class="text-red-500">{{ $message }}</span> @enderror
             </div>
 
             <div class="mt-6 self-end space-x-2">

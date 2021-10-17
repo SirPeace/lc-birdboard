@@ -1,0 +1,19 @@
+.theme-dark {
+    --primary-color: #47cdff;
+    --primary-light-color: #8ae2fe;
+    --primary-dark-color: #45c2ef;
+
+    --text-default-color: #fefefe;
+    --text-muted-color: #abadb6;
+
+    --background-body-color: #27272c;
+    --background-card-color: #35353b;
+    --background-input-color: #46464e;
+    --background-sidebar-color: #35353b;
+    --background-navbar-color: #35353b;
+    --background-modal-color: #35353b;
+    --background-hover-color: #52525c;
+
+    --border-input-color: #8a8a94;
+    --border-navbar-color: #545458;
+}
