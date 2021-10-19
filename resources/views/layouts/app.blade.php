@@ -16,7 +16,7 @@
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
-    <body class="font-sans antialiased {{ auth()->user()?->dark_theme ? 'theme-dark' : 'theme-light' }}">
+    <body class="font-sans antialiased {{ get_theme_class() }}">
         <div class="flex flex-col min-h-screen bg-body text-default">
             @include('layouts.navigation')
 

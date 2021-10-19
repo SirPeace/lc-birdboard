@@ -42,6 +42,10 @@ class ProjectController extends Controller
 
         $project = $user->projects()->create($request->validated());
 
+        if ($request->wantsJson()) {
+            return response()->jsonSuccess(['path' => $project->path()]);
+        }
+
         return redirect($project->path());
     }
 
@@ -68,6 +72,10 @@ class ProjectController extends Controller
     public function update(ProjectUpdateRequest $request, Project $project)
     {
         $project->update($request->validated());
+
+        if ($request->wantsJson()) {
+            return response()->jsonSuccess();
+        }
 
         return redirect($project->path());
     }

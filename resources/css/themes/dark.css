@@ -5,6 +5,7 @@
 
     --text-default-color: #fefefe;
     --text-muted-color: #abadb6;
+    --text-label-color: #9ea0a8;
 
     --background-body-color: #27272c;
     --background-card-color: #35353b;
@@ -14,6 +15,6 @@
     --background-modal-color: #35353b;
     --background-hover-color: #52525c;
 
-    --border-input-color: #8a8a94;
+    --border-input-color: #65656d;
     --border-navbar-color: #545458;
 }

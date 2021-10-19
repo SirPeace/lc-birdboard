@@ -14,12 +14,12 @@
                 <a href="/projects" class="hover:underline">My Projects</a> / {{ $project->title }}
             </span>
 
-            <x-controls.primary-button
+            <x-controls.button
                 @click="$dispatch('open-add-task-modal')"
                 class="self-end lg:self-auto"
             >
                 Add Task
-            </x-controls.primary-button>
+            </x-controls.button>
         </div>
 
         <div class="flex items-center">
@@ -31,12 +31,12 @@
                 <x-user-avatar :user="$project->owner"/>
             </div>
 
-            <x-controls.primary-button
+            <x-controls.button
                 @click="$dispatch('open-edit-project-modal')"
                 class="ml-4"
             >
                 Edit Project
-            </x-controls.primary-button>
+            </x-controls.button>
         </div>
     </header>
 
@@ -82,7 +82,7 @@
                             @error('email') <div class="text-red-500 text-sm">{{ $message }}</div> @enderror
                         </div>
 
-                        <x-controls.primary-button type="submit">Invite user</x-controls.primary-button>
+                        <x-controls.button type="submit">Invite user</x-controls.button>
                     </form>
                 </x-cards.card>
             @endcan

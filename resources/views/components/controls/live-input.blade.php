@@ -19,14 +19,16 @@
 @endphp
 
 @if ($textarea)
-    <textarea
+    <x-controls.input
+        textarea
+        :value="$value"
         {{ $attributes->merge() }}
         oninput="{{ $requestLogic }}"
-    >{{ $value }}</textarea>
+    />
 @else
-    <input
-        {{ $attributes->merge(['class' => 'bg-input']) }}
-        value="{{ $value }}"
+    <x-controls.input
+        {{ $attributes->merge() }}
+        :value="$value"
         oninput="{{ $requestLogic }}"
-    >
+    />
 @endif

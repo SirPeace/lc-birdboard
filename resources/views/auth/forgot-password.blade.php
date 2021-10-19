@@ -2,7 +2,7 @@
     <x-auth.card>
         <x-slot name="logo">
             <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                <x-application-logo width="400" height="62" />
             </a>
         </x-slot>
 
@@ -27,7 +27,7 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <x-controls.button>
+                <x-controls.button type="submit">
                     {{ __('Email Password Reset Link') }}
                 </x-controls.button>
             </div>

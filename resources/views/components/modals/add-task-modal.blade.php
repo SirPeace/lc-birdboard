@@ -20,15 +20,14 @@
             </div>
 
             <div class="mt-6 self-end space-x-2">
-                <x-controls.primary-button
-                    type="button"
+                <x-controls.button
                     outlined
                     @click="$dispatch('close-add-task-modal')"
                 >
                     Cancel
-                </x-controls.primary-button>
+                </x-controls.button>
 
-                <x-controls.primary-button type="submit">Add task</x-controls.primary-button>
+                <x-controls.button type="submit">Add task</x-controls.button>
             </div>
         </div>
     </form>

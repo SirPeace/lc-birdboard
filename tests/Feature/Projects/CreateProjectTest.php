@@ -66,4 +66,19 @@ class CreateProjectTest extends TestCase
         $this->post('/projects', $attributes)
             ->assertSessionHasErrors(['description']);
     }
+
+    /** @test */
+    public function get_valid_json_response_if_ajax_request_is_made()
+    {
+        $this->signIn();
+
+        $response = $this->postJson('/projects', Project::factory()->raw());
+
+        $response->assertJson([
+            'status' => 'ok',
+            'data' => [
+                'path' => Project::first()->path()
+            ]
+        ]);
+    }
 }

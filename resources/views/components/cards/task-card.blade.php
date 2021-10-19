@@ -1,5 +1,13 @@
 @props(['task'])
 
+@php
+    $inputClasses = 'px-1 py-1 rounded border-none w-full';
+
+    if ($task->completed) {
+        $inputClasses .= ' line-through text-muted';
+    }
+@endphp
+
 <x-cards.card {{ $attributes->merge() }}>
     <form action="{{ $task->path() }}" method="POST">
         @method('PATCH')
@@ -12,17 +20,17 @@
                 :value="$task->body"
                 type="text"
                 name="body"
-                class="px-4 py-3 rounded border-none w-full"
+                class="{{ $inputClasses }}"
+                :disabled="$task->completed"
             />
 
-            <input
-                type="checkbox"
+            <x-controls.checkbox
                 name="completed"
                 value="1"
                 onchange="this.form.submit()"
-                @if ($task->completed) checked @endif
-                class="rounded-xl border-2 border-primary hover:border-primary-dark transition cursor-pointer w-6 h-6 bg-input"
-            >
+                :checked="$task->completed"
+                class="rounded-xl w-6 h-6"
+            />
         </div>
     </form>
 </x-cards.card>

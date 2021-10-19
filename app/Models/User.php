@@ -73,4 +73,9 @@ class User extends Authenticatable
             ->latest('updated_at')
             ->get();
     }
+
+    public function gravatarUrl(): string
+    {
+        return "https://gravatar.com/avatar/".md5($this->email)."?d=mp&s=60";
+    }
 }

@@ -29,15 +29,15 @@
             @click.away="isOpen = false"
             class="inline-block align-bottom bg-modal rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
         >
-            <div class="bg-modal px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div class="mt-3 text-center sm:mt-0 sm:text-left">
-                    <h3 class="text-xl font-bold leading-6 font-medium" id="modal-title">
+            <div class="bg-modal p-6">
+                <header class="mb-8">
+                    <h3 class="text-2xl font-bold font-medium text-center">
                         {{ $title }}
                     </h3>
+                </header>
 
-                    <div class="my-4">
-                        {{ $slot }}
-                    </div>
+                <div>
+                    {{ $slot }}
                 </div>
             </div>
         </div>

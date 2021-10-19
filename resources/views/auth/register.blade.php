@@ -2,7 +2,7 @@
     <x-auth.card>
         <x-slot name="logo">
             <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                <x-application-logo width="400" height="62" />
             </a>
         </x-slot>
 
@@ -46,11 +46,11 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
+                <a class="text-sm hover:underline focus:outline-none focus:ring ring-opacity-30 ring-primary rounded-sm" href="{{ route('login') }}">
                     {{ __('Already registered?') }}
                 </a>
 
-                <x-controls.button class="ml-4">
+                <x-controls.button class="ml-4" type="submit">
                     {{ __('Register') }}
                 </x-controls.button>
             </div>

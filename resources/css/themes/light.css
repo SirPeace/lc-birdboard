@@ -5,10 +5,11 @@
 
     --text-default-color: #222;
     --text-muted-color: #a1a1aa;
+    --text-label-color: #6e6e79;
 
     --background-body-color: #f4f4f5;
     --background-card-color: #ffffff;
-    --background-input-color: #fafafa;
+    --background-input-color: #ffffff;
     --background-sidebar-color: #fafafa;
     --background-navbar-color: #ffffff;
     --background-modal-color: #ffffff;

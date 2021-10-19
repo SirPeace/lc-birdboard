@@ -34,15 +34,15 @@
             </div>
 
             <div class="mt-6 self-end space-x-2">
-                <x-controls.primary-button
+                <x-controls.button
                     type="button"
                     outlined
                     @click="$dispatch('close-edit-project-modal')"
                 >
                     Cancel
-                </x-controls.primary-button>
+                </x-controls.button>
 
-                <x-controls.primary-button type="submit">Edit project</x-controls.primary-button>
+                <x-controls.button type="submit">Edit project</x-controls.button>
             </div>
         </div>
     </form>

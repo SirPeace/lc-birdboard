@@ -107,4 +107,13 @@ class UpdateProjectTest extends TestCase
             array_merge($attributes, ['owner_id' => $this->project->owner_id])
         );
     }
+
+    /** @test */
+    public function get_valid_json_response_if_ajax_request_was_made()
+    {
+        $this->signIn($this->project->owner);
+
+        $this->patchJson($this->project->path(), Project::factory()->raw())
+            ->assertJson(['status' => 'ok']);
+    }
 }

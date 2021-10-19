@@ -1,6 +1,9 @@
 <?php
 
-function gravatar_url(string $email): string
+function get_theme_class(): string
 {
-    return "https://gravatar.com/avatar/".md5($email)."?d=mp&s=60";
+    /** @var User|null $user */
+    $user = auth()?->user();
+
+    return $user?->dark_theme ? 'theme-dark' : 'theme-light';
 }

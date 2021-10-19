@@ -36,6 +36,7 @@ module.exports = {
             textColor: {
                 'default': 'var(--text-default-color)',
                 'muted': 'var(--text-muted-color)',
+                'label': 'var(--text-label-color)',
             },
 
             backgroundColor: {
@@ -51,6 +52,10 @@ module.exports = {
             borderColor: {
                 'input': 'var(--border-input-color)',
                 'navbar': 'var(--border-navbar-color)',
+            },
+
+            ringColor: {
+                'primary': 'rgba(71, 205, 255, var(--tw-ring-opacity))'
             }
         },
     },

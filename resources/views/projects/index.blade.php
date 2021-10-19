@@ -5,9 +5,9 @@
 
     <div class="flex justify-between items-end mb-6 px-3 lg:px-0">
         <span class="text-muted">My projects</span>
-        <x-controls.primary-button x-data="{}" @click="$dispatch('open-create-project-modal')">
+        <x-controls.button x-data="{}" @click="$dispatch('open-create-project-modal')">
             Create Project
-        </x-controls.primary-button>
+        </x-controls.button>
     </div>
 
     <div class="lg:flex lg:flex-wrap lg:-mx-3">
