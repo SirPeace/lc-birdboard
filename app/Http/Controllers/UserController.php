@@ -24,6 +24,6 @@ class UserController extends Controller
 
         $user->update($validData);
 
-        return response(status: 204);
+        return response()->noContent();
     }
 }
