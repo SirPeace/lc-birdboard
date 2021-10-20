@@ -25,10 +25,10 @@
         <div class="flex items-center">
             <div class="flex space-x-2">
                 @foreach ($project->members as $member)
-                    <x-user-avatar :user="$member"/>
+                    <x-user-avatar :user="$member" title="{{ $member->name }}" />
                 @endforeach
 
-                <x-user-avatar :user="$project->owner"/>
+                <x-user-avatar :user="$project->owner" title="{{ $project->owner->name }}" />
             </div>
 
             <x-controls.button
@@ -60,7 +60,7 @@
                     :url="$project->path()"
                     field="notes"
                     :value="$project->notes"
-                    class="rounded-lg bg-card p-3 shadow border-none w-full"
+                    class="shadow border-none !bg-card"
                     rows="10"
                     placeholder="Project notes here..."
                 />

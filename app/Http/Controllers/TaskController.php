@@ -26,6 +26,10 @@ class TaskController extends Controller
 
         $project->addTask(new Task($request->validated()));
 
+        if ($request->wantsJson()) {
+            return response()->jsonSuccess();
+        }
+
         return redirect($project->path());
     }
 
@@ -42,6 +46,10 @@ class TaskController extends Controller
         $task->update($request->validated());
 
         $request->completed ? $task->complete() : $task->incomplete();
+
+        if ($request->wantsJson()) {
+            return response()->jsonSuccess();
+        }
 
         return redirect($task->project->path());
     }

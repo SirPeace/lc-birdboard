@@ -68,4 +68,17 @@ class CreateTaskTest extends TestCase
 
         $this->assertDatabaseMissing('tasks', $attributes);
     }
+
+    /** @test */
+    public function get_valid_json_response_if_ajax_request_is_made()
+    {
+        $this->signIn($this->project->owner);
+
+        $response = $this->postJson(
+            $this->project->path().'/tasks',
+            Task::factory()->raw()
+        );
+
+        $response->assertJson(['status' => 'ok']);
+    }
 }

@@ -111,4 +111,17 @@ class UpdateTaskTest extends TestCase
 
         $this->assertDatabaseCount('activities', 4);
     }
+
+    /** @test */
+    public function get_valid_json_response_if_ajax_request_is_made()
+    {
+        $this->signIn($this->task->project->owner);
+
+        $response = $this->patchJson(
+            $this->task->path(),
+            Task::factory()->raw()
+        );
+
+        $response->assertJson(['status' => 'ok']);
+    }
 }

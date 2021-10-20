@@ -1,4 +1,4 @@
-@props(['title', 'openEvent', 'closeEvent' => null])
+@props(['title', 'openEvent', 'closeEvent' => null, 'large' => false ])
 
 <div
     x-cloak
@@ -27,7 +27,7 @@
         <div
             x-show.transition.opacity.duration.300ms="isOpen"
             @click.away="isOpen = false"
-            class="inline-block align-bottom bg-modal rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+            class="inline-block align-bottom bg-modal rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-{{ $large ? '3xl' : 'lg' }} sm:w-full"
         >
             <div class="bg-modal p-6">
                 <header class="mb-8">
