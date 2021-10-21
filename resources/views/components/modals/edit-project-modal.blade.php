@@ -5,10 +5,22 @@
     openEvent="open-edit-project-modal"
     closeEvent="close-edit-project-modal"
 >
-    <form action="{{ $project->path() }}" method="POST">
-        @csrf
-        @method("PATCH")
+    <form
+        x-data="{
+            form: {
+                title: '{{ $project->title }}',
+                description: '{{ $project->description }}'
+            },
 
+            errors: {}
+        }"
+
+        @submit.prevent="
+            axios.patch('{{ $project->path() }}', form)
+                .then(res => location.reload())
+                .catch(err => errors = err.response.data.errors)
+        "
+    >
         <div class="flex flex-col">
             <div class="space-y-3">
                 <div>
@@ -16,20 +28,29 @@
                     <x-controls.input
                         type="text"
                         name="title"
-                        :value="old('title') ?? $project->title"
                         id="project__title"
+                        x-model="form.title"
+                        ::class="{ 'border-red-500': errors.title }"
+                        data-autofocus="open-edit-project-modal"
+                        required
                     />
-                    @error('title') <span class="text-red-500">{{ $message }}</span> @enderror
+                    <template x-if="errors.title">
+                        <div class="text-red-500" x-text="errors.title"></div>
+                    </template>
                 </div>
                 <div>
                     <label for="project__description">Description</label>
                     <x-controls.input
                         type="text"
                         name="description"
-                        :value="old('description') ?? $project->description"
                         id="project__description"
+                        x-model="form.description"
+                        ::class="{ 'border-red-500': errors.description }"
+                        required
                     />
-                    @error('description') <span class="text-red-500">{{ $message }}</span> @enderror
+                    <template x-if="errors.description">
+                        <div class="text-red-500" x-text="errors.description"></div>
+                    </template>
                 </div>
             </div>
 

@@ -5,9 +5,6 @@
     large
 >
     <form
-        action="/projects"
-        method="POST"
-
         x-data="{
             form: {
                 title: '',
@@ -46,9 +43,11 @@
                             :value="old('title')"
                             ::class="{ 'border-red-500': errors.title }"
                             x-model="form.title"
+                            data-autofocus='open-create-project-modal'
+                            required
                         />
                         <template x-if="errors.title">
-                            <div class="text-red-600" x-text="errors.title"></div>
+                            <div class="text-red-500" x-text="errors.title"></div>
                         </template>
                     </div>
 
@@ -62,6 +61,7 @@
                             rows="5"
                             ::class="{ 'border-red-500': errors.description }"
                             x-model="form.description"
+                            required
                         />
                         <template x-if="errors.description">
                             <div class="text-red-600" x-text="errors.description"></div>
@@ -74,7 +74,13 @@
 
                     <ul class="">
                         <template x-for="task in tasks">
-                            <x-controls.input type="text" placeholder="Add new task..." x-model="task.body" class="mb-2" />
+                            <x-controls.input
+                                type="text"
+                                placeholder="Add new task..."
+                                x-model="task.body"
+                                class="mb-2"
+                                required
+                            />
                         </template>
 
                         <button

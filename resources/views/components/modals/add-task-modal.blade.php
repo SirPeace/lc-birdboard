@@ -5,18 +5,36 @@
     openEvent="open-add-task-modal"
     closeEvent="close-add-task-modal"
 >
-    <form action="{{ $project->path() }}/tasks" method="POST">
-        @csrf
+    <form
+        x-data="{
+            form: {
+                body: '',
+            },
+
+            errors: {}
+        }"
+
+        @submit.prevent="
+            axios.post('{{ $project->path() }}/tasks', form)
+                .then(res => location.reload())
+                .catch(err => errors = err.response.data.errors)
+        "
+    >
         <div class="flex flex-col">
             <div>
-                <label for="task__body">Task description</label>
+                <label for="task__body">Task body</label>
                 <x-controls.input
                     type="text"
                     name="body"
-                    :value="old('task')"
                     id="task__body"
+                    x-model="form.body"
+                    ::class="{ 'border-red-500': errors.body }"
+                    data-autofocus="open-add-task-modal"
+                    required
                 />
-                @error('body') <span class="text-red-500">{{ $message }}</span> @enderror
+                <template x-if="errors.body">
+                    <div class="text-red-500" x-text="errors.body"></div>
+                </template>
             </div>
 
             <div class="mt-6 self-end space-x-2">
